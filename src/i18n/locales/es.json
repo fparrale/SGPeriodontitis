@@ -1,0 +1,619 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "deleting": "Eliminando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "all": "Todos",
+    "reactivate": "Reactivar",
+    "addQuestions": "Agregar Preguntas",
+    "statistics": "Estadísticas",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "pending": "Pendiente",
+    "deleted": "Eliminado",
+    "unknown": "Desconocido",
+    "actions": "Acciones",
+    "settings": "Configuración",
+    "languages": {
+      "en": "Inglés",
+      "es": "Español"
+    }
+  },
+  "toasts": {
+    "correctMessages": [
+      "¡Excelente! 🎉",
+      "¡Perfecto! ⭐",
+      "¡Increíble! 🚀",
+      "¡Genial! 💪",
+      "¡Fantástico! 🌟",
+      "¡Eres un crack! 🏆"
+    ],
+    "incorrectMessages": [
+      "¡Ups! No te rindas 💪",
+      "¡Casi! Sigue intentando 🎯",
+      "¡Ánimo! La próxima será 🌟",
+      "No pasa nada, aprende y avanza 📚",
+      "¡Inténtalo de nuevo! 🚀",
+      "¡Tú puedes! Piensa bien 🧠"
+    ],
+    "correctAnswer": "¡Respuesta correcta!",
+    "incorrectAnswer": "Respuesta incorrecta"
+  },
+  "auth": {
+    "login": {
+      "title": "Acceso a Plataforma",
+      "email": "Identificador de Usuario",
+      "emailPlaceholder": "Correo Electrónico",
+      "password": "Contraseña",
+      "passwordPlaceholder": "********",
+      "submit": "Iniciar Sesión",
+      "submitting": "Iniciando sesión...",
+      "forgotPassword": "¿Problemas con la clave?",
+      "newMember": "¿Nuevo miembro?",
+      "register": "Regístrate",
+      "invalidCredentials": "Credenciales inválidas",
+      "connectionError": "No se pudo conectar con el servidor"
+    },
+    "register": {
+      "title": "Registro de Nuevo Usuario",
+      "fullName": "Nombre Completo",
+      "fullNamePlaceholder": "Tu nombre y apellido",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "ejemplo@corporacion.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Mínimo 8 caracteres",
+      "confirmPassword": "Confirmar Contraseña",
+      "confirmPasswordPlaceholder": "Repite tu contraseña",
+      "submit": "Registrarse",
+      "submitting": "Registrando...",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "registrationSuccess": "¡Su cuenta ha sido creada exitosamente! Redirigiendo al login...",
+      "registrationError": "Fallo al registrar el usuario",
+      "connectionError": "No se pudo conectar con el servidor",
+      "haveAccount": "¿Ya tienes cuenta?",
+      "signIn": "Inicia Sesión"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "menu": "Menú Principal",
+    "general": "General",
+    "groups": "Grupos",
+    "users": "Usuarios",
+    "questions": "Preguntas",
+    "version": "Plataforma v1.0",
+    "viewReport": "Ver reporte",
+    "home": {
+      "filterLabel": "Filtrar por grupo",
+      "selectPlaceholder": "Selecciona un grupo",
+      "allGroups": "Todos los grupos",
+      "noStats": "No hay estadísticas disponibles para este grupo.",
+      "subtitle": "Estadísticas de rendimiento por grupo",
+      "reportLabel": "Reporte",
+      "generatingPdf": "Generando...",
+      "downloadPdf": "Descargar PDF"
+    },
+    "stats": {
+      "chartTitle": "Aciertos vs. Errores por Pregunta",
+      "totalUsers": "Usuarios Totales",
+      "activeUsers": "Usuarios Activos",
+      "totalGroups": "Grupos Totales",
+      "totalQuestions": "Preguntas Totales",
+      "avgResponseTime": "Tiempo Promedio de Respuesta",
+      "precision": "Precisión",
+      "groupQuestionsStatsTableTitle": "Desempeño del Grupo por Pregunta",
+      "questionColumn": "Pregunta",
+      "optionA": "Opc. A",
+      "optionB": "Opc. B",
+      "optionC": "Opc. C",
+      "optionD": "Opc. D",
+      "avgTime": "Prom. Tiempo",
+      "accuracy": "Precisión"
+    },
+    "gameStats": {
+      "title": "Resultados de Partidas del Grupo",
+      "loading": "Cargando resultados de partidas...",
+      "noGameStats": "No hay datos de partidas disponibles para este grupo",
+      "user": "Usuario",
+      "score": "Puntos",
+      "correct": "Correctas",
+      "incorrect": "Incorrectas",
+      "lives": "Vidas",
+      "time": "Tiempo",
+      "status": "Estado",
+      "date": "Fecha",
+      "action": "Acción"
+    },
+    "statsChart": {
+      "questionLabel": "Pregunta",
+      "correctLabel": "Resp. Correctas",
+      "incorrectLabel": "Resp. Incorrectas"
+    }
+  },
+  "users": {
+    "title": "Usuarios",
+    "createNew": "Nuevo Usuario",
+    "loading": "Cargando usuarios...",
+    "selectStatus": "Selecciona un estado",
+    "filterStatus": "Filtrar por estado",
+    "all": "Todos",
+    "deleteSuccess": "Usuario borrado exitosamente.",
+    "deleteError": "Fallo al borrar el usuario",
+    "searchPlaceholder": "Buscar por nombre o correo...",
+    "noResults": "No hay usuarios para mostrar",
+    "roles": {
+      "admin": "Admin",
+      "participant": "Jugador",
+      "dev": "Desarrollador",
+      "superadmin": "SuperAdmin"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "pending": "Pendiente",
+      "deleted": "Eliminado"
+    },
+    "table": {
+      "name": "Nombre",
+      "email": "Correo",
+      "role": "Rol",
+      "status": "Estado",
+      "createdOn": "Fecha de Creación",
+      "actions": "Acciones"
+    },
+    "dialog": {
+      "titleCreate": "Crear Nuevo Usuario",
+      "titleEdit": "Editar Usuario",
+      "descriptionCreate": "Ingresa la información para un nuevo participante.",
+      "descriptionEdit": "Modifica los datos del usuario seleccionado.",
+      "loadingData": "Cargando datos...",
+      "fields": {
+        "name": "Nombre",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "passwordPlaceholder": "Ingresa una contraseña",
+        "passwordHint": "Mínimo 8 caracteres, máximo 32 caracteres",
+        "role": "Rol",
+        "status": "Estado",
+        "selectRole": "Seleccionar rol",
+        "selectStatus": "Seleccionar estado"
+      },
+      "buttons": {
+        "saveChanges": "Guardar Cambios",
+        "createUser": "Crear Usuario"
+      },
+      "messages": {
+        "created": "Usuario creado exitosamente.",
+        "updated": "Usuario actualizado exitosamente."
+      }
+    },
+    "resetPassword": {
+      "title": "Restablecer Contraseña",
+      "description": "La acción generará una nueva contraseña y reemplazará la actual.",
+      "userName": "Usuario",
+      "userEmail": "Correo Electrónico",
+      "confirmEmail": "Confirmar correo electrónico",
+      "emailPlaceholder": "Escribe el correo del usuario para confirmar",
+      "emailMismatch": "El correo no coincide",
+      "loadError": "Error al cargar datos del usuario",
+      "success": "Contraseña restablecida correctamente",
+      "error": "Error al restablecer la contraseña",
+      "networkError": "Error de conexión de red",
+      "resetting": "Restableciendo...",
+      "confirmReset": "Sí, restablecer",
+      "successTitle": "Contraseña Restablecida",
+      "newPassword": "Nueva Contraseña",
+      "copy": "Copiar",
+      "copied": "Contraseña copiada al portapapeles",
+      "copyWarning": "Cópiala ahora, una vez cerrado deberás generar una nueva."
+    },
+    "updatePassword": {
+      "title": "Cambiar Contraseña",
+      "description": "Por seguridad, necesitas tu contraseña actual para cambiarla.",
+      "fields": {
+        "currentPassword": "Contraseña Actual",
+        "newPassword": "Nueva Contraseña",
+        "confirmPassword": "Confirmar Nueva Contraseña",
+        "passwordHint": "Mínimo 8 caracteres, máximo 32 caracteres"
+      },
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "samePassword": "La nueva contraseña no puede ser igual a la anterior",
+      "success": "Contraseña actualizada correctamente",
+      "error": "Error al actualizar la contraseña",
+      "networkError": "Error de conexión de red",
+      "updating": "Actualizando...",
+      "updateButton": "Cambiar Contraseña"
+    }
+  },
+  "groups": {
+    "title": "Grupos",
+    "createNew": "Crear Grupo",
+    "loading": "Cargando grupos de juego...",
+    "deleteSuccess": "Grupo eliminado correctamente.",
+    "deleteError": "Fallo al borrar el grupo",
+    "code": "Código",
+    "copyCode": "Copiar código",
+    "codeCopied": "Código de acceso copiado al portapapeles",
+    "copyError": "No se pudo copiar el código de acceso",
+    "description": "Descripción",
+    "createdOn": "Creado el",
+    "created": "Creado",
+    "noGroups": "No se encontraron grupos de juego. Crea el primer grupo para empezar.",
+    "searchPlaceholder": "Buscar por nombre, descripción o código de acceso...",
+    "noSearchResults": "No se encontraron grupos que coincidan con la búsqueda.",
+    "codeLabel": "Código de acceso",
+    "name": "Nombre",
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "archived": "Archivado"
+    },
+    "dialog": {
+      "titleCreate": "Crear Nuevo Grupo",
+      "titleEdit": "Editar Grupo",
+      "descriptionCreate": "Ingresa el nombre y la descripción para crear un nuevo grupo.",
+      "descriptionEdit": "Modifica los datos del grupo seleccionado.",
+      "codeLabel": "Código (6 dígitos)",
+      "codeHint": "Generado automáticamente",
+      "nameLabel": "Nombre *",
+      "descriptionLabel": "Descripción",
+      "statusLabel": "Estado",
+      "errorRequired": "El nombre del grupo es obligatorio.",
+      "errorCreate": "Fallo al crear el grupo con status",
+      "successCreate": "Grupo creado exitosamente.",
+      "buttonCreating": "Creando...",
+      "buttonSave": "Crear Grupo",
+      "buttonUpdate": "Guardar Cambios",
+      "buttonUpdating": "Actualizando..."
+    },
+    "questions": {
+      "title": "Agregar Preguntas",
+      "description": "Seleccionas las preguntas que deseas agregar al grupo.",
+      "loading": "Cargando preguntas...",
+      "listTitle": "Lista de Preguntas",
+      "selectedTitle": "Preguntas seleccionadas",
+      "searchPlaceholder": "Buscar pregunta...",
+      "noSelected": "No hay preguntas seleccionadas.",
+      "buttonCancel": "Cancelar",
+      "buttonSaving": "Guardando...",
+      "buttonSave": "Guardar Cambios",
+      "successUpdate": "Preguntas del grupo actualizadas correctamente.",
+      "errorUpdate": "Error al actualizar las preguntas en el grupo."
+    }
+  },
+  "questions": {
+    "title": "Banco de Preguntas del Sistema",
+    "createNew": "Agregar Pregunta",
+    "generateWithAI": "Generar con IA",
+    "uploadCsv": "Subir Preguntas CSV",
+    "loading": "Cargando preguntas...",
+    "deleteSuccess": "Pregunta eliminada correctamente.",
+    "deleteError": "Fallo al borrar la pregunta",
+    "reactivateSuccess": "Pregunta reactivada correctamente.",
+    "reactivateError": "Fallo al reactivar la pregunta",
+    "type": "Tipo",
+    "language": "Idioma",
+    "created": "Creado",
+    "status": "Estado",
+    "languageLabel": {
+      "es": "ESP",
+      "en": "ENG",
+      "notAvailable": "N/D"
+    },
+    "responseOptions": "Opciones de Respuesta:",
+    "tipNote": "Pista (Tip Note):",
+    "feedback": "Retroalimentación:",
+    "correct": "Correcta",
+    "dialog": {
+      "titleCreate": "Crear Nueva Pregunta",
+      "titleEdit": "Editar Pregunta",
+      "descriptionCreate": "Ingresa la información para crear una nueva pregunta.",
+      "descriptionEdit": "Modifica los datos de la pregunta seleccionada.",
+      "descriptionCreateOptions": "Ingresa las opciones de respuesta y marca la correcta.",
+      "descriptionEditOptions": "Modifica o marca la opción correcta.",
+      "loadingData": "Cargando datos...",
+      "loadError": "Error al cargar la pregunta",
+      "saveError": "Error al guardar la pregunta",
+      "networkError": "Error de conexión de red",
+      "fields": {
+        "title": "Título / Categoría",
+        "description": "Contenido de la Pregunta",
+        "tipNote": "Pista (Tip Note)",
+        "feedback": "Retroalimentación",
+        "language": "Idioma",
+        "options": "Opciones de Respuesta",
+        "option": "Opción",
+        "correct": "Correcta"
+      },
+      "buttons": {
+        "saveChanges": "Guardar Cambios",
+        "createQuestion": "Crear Pregunta"
+      },
+      "messages": {
+        "created": "Pregunta creada correctamente.",
+        "updated": "Pregunta actualizada correctamente."
+      }
+    },
+    "genAI": {
+      "title": "Generar Preguntas con IA",
+      "description": "Configuración para generar preguntas automáticamente utilizando inteligencia artificial.",
+      "quantity": "Cantidad",
+      "difficulty": "Dificultad",
+      "language": "Idioma",
+      "selectDifficulty": "Selecciona una dificultad",
+      "selectLanguage": "Selecciona un idioma",
+      "levels": {
+        "low": "Baja",
+        "medium": "Media",
+        "high": "Alta"
+      },
+      "languages": {
+        "es": "Español",
+        "en": "Inglés"
+      },
+      "generating": "Generando preguntas con IA...",
+      "success": "Éxito:",
+      "error": "Error:",
+      "connectionError": "Error al generar preguntas con IA. Por favor, intenta de nuevo.",
+      "buttonGenerating": "Generando...",
+      "buttonGenerate": "Generar"
+    },
+    "upload": {
+      "title": "Carga Masiva de Preguntas",
+      "description": "Selecciona un archivo CSV para importar nuevas preguntas. Si no tienes el formato, descarga la plantilla proporcionada.",
+      "fileLabel": "Archivo CSV",
+      "selectFile": "Por favor, selecciona un archivo CSV.",
+      "uploading": "Subiendo archivo...",
+      "success": "Archivo CSV subido y procesado con éxito.",
+      "error": "Error en el procesamiento del archivo.",
+      "connectionError": "Error de conexión o red. Verifica que el servidor esté activo.",
+      "buttonProcessing": "Procesando...",
+      "buttonUpload": "Subir y Procesar",
+      "buttonDownloadTemplate": "Descargar Plantilla CSV",
+      "downloadTemplateHint": "Ábrela con Excel, edítala y súbela para importar correctamente tus preguntas.",
+      "downloadTemplateError": "Error al descargar la plantilla."
+    },
+    "types": {
+      "multiple_option": "Opción Múltiple",
+      "true_false": "Verdadero/Falso",
+      "fill_in_the_blank": "Rellenar",
+      "unknown": "Desconocido"
+    },
+    "uploadDetails": {
+      "title": "Detalles de Carga",
+      "totalReceived": "Total recibido",
+      "created": "Preguntas creadas",
+      "skipped": "Preguntas saltadas"
+    },
+    "difficulty": {
+      "easy": "Fácil",
+      "medium": "Medio",
+      "hard": "Difícil"
+    },
+    "correctAnswer": "Respuesta Correcta",
+    "options": "Opciones",
+    "searchPlaceholder": "Buscar por título / categoría o contenido...",
+    "filterAI": "Filtrar según origen",
+    "filterLang": "Filtrar según idioma",
+    "all": "Todas",
+    "ai": "IA",
+    "manual": "Manual",
+    "spanish": "Español",
+    "english": "Inglés",
+    "noResults": "No existen preguntas que coincidan con los filtros establecidos.",
+    "noQuestions": "No existen preguntas cargadas al sistema, comienza agregando una nueva.",
+    "searching": "Buscando...",
+    "filterStatus": "Filtrar según estado",
+    "statusLabel": {
+      "active": "Activa",
+      "actives": "Activas",
+      "inactive": "Inactiva",
+      "inactives": "Inactivas",
+      "deleted": "Eliminada",
+      "deleteds": "Eliminadas",
+      "unknown": "Desconocido"
+    }
+  },
+  "profile": {
+    "title": "Perfil",
+    "editProfile": "Editar Perfil",
+    "changePassword": "Cambiar Contraseña",
+    "logout": "Cerrar Sesión",
+    "personalInfo": "Información Personal",
+    "accountSettings": "Configuración de Cuenta",
+    "loading": "Cargando datos del perfil...",
+    "name": "Nombre",
+    "email": "Correo",
+    "role": "Rol",
+    "status": "Estado",
+    "errors": {
+      "fetchProfile": "No fue posible obtener los datos del perfil del usuario",
+      "serverConnection": "No fue posible conectar con el servidor"
+    }
+  },
+  "game": {
+    "groupStats": {
+      "title": "Estadísticas del Grupo",
+      "description": "Resultados de todos los jugadores en este grupo",
+      "loading": "Cargando estadísticas...",
+      "error": "Error al cargar estadísticas",
+      "serverError": "Error al conectar con el servidor",
+      "noStats": "No hay estadísticas disponibles para este grupo",
+      "user": "Jugador",
+      "score": "Puntos",
+      "correct": "Correctas",
+      "incorrect": "Incorrectas",
+      "date": "Fecha",
+      "time": "Tiempo",
+      "status": "Estado",
+      "finished": "Finalizado",
+      "me": "(Yo)",
+      "close": "Cerrar"
+    },
+    "confirmStartGame": {
+      "welcome": "Bienvenido",
+      "ready": "Estás a punto de iniciar el juego. Asegúrate de estar listo para comenzar.",
+      "noPause": "Una vez que inicies, no podrás pausar el juego. ¡Buena suerte!",
+      "startButton": "Iniciar Juego"
+    },
+    "start": "Iniciar Juego",
+    "end": "Finalizar Juego",
+    "pause": "Pausar",
+    "resume": "Reanudar",
+    "score": "Puntuación",
+    "time": "Tiempo",
+    "question": "Pregunta",
+    "of": "de",
+    "submit": "Enviar Respuesta",
+    "nextQuestion": "Siguiente Pregunta",
+    "finish": "Finalizar",
+    "results": "Resultados",
+    "correct": "Correctas",
+    "incorrect": "Incorrectas",
+    "questionNumber": "Pregunta",
+    "lives": "Vidas",
+    "respond": "Responder",
+    "continue": "Continuar",
+    "saving": "Guardando...",
+    "confirmStart": {
+      "title": "Confirmar Inicio de Juego",
+      "message": "¿Estás seguro de que quieres iniciar el juego?",
+      "confirm": "Sí, iniciar",
+      "cancel": "Cancelar"
+    },
+    "gameEnd": {
+      "title": "¡Juego Terminado!",
+      "message": "Has completado el juego.",
+      "description": "Has completado todas las preguntas",
+      "score": "Tu puntuación final:",
+      "playAgain": "Jugar de nuevo",
+      "backToMenu": "Volver al menú",
+      "correctAnswer": "Respuestas Correctas",
+      "totalTime": "Tiempo Total:",
+      "groupStats": "Estadísticas del Grupo",
+      "pts": "pts."
+    },
+    "access": {
+      "title": "Acceder a un Juego",
+      "userNameLabel": "Nombre de usuario",
+      "userNamePlaceholder": "Ingrese nombre del usuario",
+      "gameCodeLabel": "Código del Juego",
+      "gameCodePlaceholder": "Ingrese el código del juego",
+      "accessButton": "Acceder al Juego",
+      "loading": "Cargando...",
+      "errorLoading": "Error al cargar el juego",
+      "invalidCode": "Código de juego inválido",
+      "redirect": "Juego iniciado correctamente, redireccionando...",
+      "serverError": "Error del servidor. Intente más tarde.",
+      "unauthenticatedUser": "Usuario no autenticado.",
+      "errorLoadingGroup": "Error al cargar informacion del grupo."
+    },
+    "found": {
+      "title": "Juego Encontrado",
+      "message": "¿Estás seguro de que deseas iniciar el juego <b>\"#{{code}}\"</b> ?",
+      "confirm": "Iniciar",
+      "loading": "Cargando..."
+    }
+  },
+  "report": {
+    "userAttempt": {
+      "title": "Reporte Individual de Partida",
+      "description": "Detalle del desempeño y respuestas del jugador.",
+      "loading": "Cargando reporte...",
+      "summary": "Resumen",
+      "generalInfo": "Información General",
+      "username": "Jugador",
+      "group": "Grupo",
+      "groupCode": "Código de Grupo",
+      "results": "Resultados",
+      "score": "Puntuación",
+      "correct": "Correctas",
+      "incorrect": "Incorrectas",
+      "lives": "Vidas restantes",
+      "timeSection": "Tiempo",
+      "duration": "Duración",
+      "started": "Iniciada",
+      "finished": "Finalizada",
+      "questionDetail": "Detalle por Pregunta",
+      "badgeCorrect": "Correcta",
+      "badgeIncorrect": "Incorrecta",
+      "responseTimeTooltip": "Tiempo de respuesta",
+      "optionsLabel": "Opciones de respuesta:",
+      "correctAnswerInfo": "La respuesta correcta era:",
+      "feedback": "Retroalimentación",
+      "loadError": "Error al cargar el reporte del juego",
+      "noData": "No se pudo cargar el reporte",
+      "close": "Cerrar",
+      "downloadPdf": "Descargar PDF",
+      "downloadingPdf": "Descargando PDF..."
+    }
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión",
+    "language": "Idioma"
+  },
+  "footer": {
+    "copyright": "© 2026 Plataforma de Juegos Educativos. Todos los derechos reservados.",
+    "version": "Versión"
+  },
+  "errors": {
+    "notFound": "Página no encontrada",
+    "serverError": "Error del servidor",
+    "unauthorized": "No autorizado",
+    "forbidden": "Prohibido",
+    "badRequest": "Solicitud incorrecta",
+    "networkError": "Error de red",
+    "unexpectedError": "Error inesperado"
+  },
+  "validation": {
+    "required": "Este campo es requerido",
+    "email": "Correo electrónico inválido",
+    "minLength": "Mínimo {{count}} caracteres",
+    "maxLength": "Máximo {{count}} caracteres",
+    "passwordMatch": "Las contraseñas deben coincidir"
+  },
+  "genericDialogs": {
+    "delete": {
+      "title": "Confirmar Eliminación",
+      "description": "La acción eliminará {{itemType}} '{{itemName}}'",
+      "message": "¿Estás seguro de que deseas continuar?",
+      "warning": "Esta acción no se puede deshacer.",
+      "confirmAction": "Sí, eliminar",
+      "cancel": "Cancelar",
+      "itemTypes": {
+        "user": "al usuario",
+        "group": "el grupo",
+        "question": "la pregunta"
+      }
+    },
+    "reactivate": {
+      "title": "Reactivar pregunta",
+      "description": "La acción configurará como activa la pregunta: '{{itemName}}'",
+      "message": "¿Estás seguro que deseas continuar?",
+      "confirmAction": "Reactivar",
+      "cancel": "Cancelar",
+      "error": "Ocurrió un error al intentar reactivar la pregunta."
+    },
+    "save": {
+      "title": "Guardar Cambios",
+      "message": "¿Deseas guardar los cambios realizados?",
+      "confirmAction": "Guardar",
+      "cancel": "Cancelar"
+    }
+  }
+}

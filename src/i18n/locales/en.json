@@ -1,0 +1,619 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "deleting": "Deleting...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "close": "Close",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "reactivate": "Reactivate",
+    "addQuestions": "Add Questions",
+    "statistics": "Statistics",
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "deleted": "Deleted",
+    "unknown": "Unknown",
+    "actions": "Actions",
+    "settings": "Settings",
+    "languages": {
+      "en": "English",
+      "es": "Spanish"
+    }
+  },
+  "toasts": {
+    "correctMessages": [
+      "Excellent! 🎉",
+      "Perfect! ⭐",
+      "Incredible! 🚀",
+      "Great! 💪",
+      "Fantastic! 🌟",
+      "You're awesome! 🏆"
+    ],
+    "incorrectMessages": [
+      "Oops! Don't give up 💪",
+      "Almost! Keep trying 🎯",
+      "Cheer up! Next time 🌟",
+      "No worries, learn and move on 📚",
+      "Try again! 🚀",
+      "You can do it! Think well 🧠"
+    ],
+    "correctAnswer": "Correct answer!",
+    "incorrectAnswer": "Incorrect answer"
+  },
+  "auth": {
+    "login": {
+      "title": "Platform Access",
+      "email": "User Identifier",
+      "emailPlaceholder": "Email Address",
+      "password": "Password",
+      "passwordPlaceholder": "********",
+      "submit": "Sign In",
+      "submitting": "Signing in...",
+      "forgotPassword": "Password issues?",
+      "newMember": "New member?",
+      "register": "Sign up",
+      "invalidCredentials": "Invalid credentials",
+      "connectionError": "Could not connect to server"
+    },
+    "register": {
+      "title": "New User Registration",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Your name and surname",
+      "email": "Email Address",
+      "emailPlaceholder": "example@corporation.com",
+      "password": "Password",
+      "passwordPlaceholder": "Minimum 8 characters",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Repeat your password",
+      "submit": "Register",
+      "submitting": "Registering...",
+      "passwordMismatch": "Passwords do not match",
+      "registrationSuccess": "Your account has been created successfully! Redirecting to login...",
+      "registrationError": "Failed to register user",
+      "connectionError": "Could not connect to the server",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign In"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "menu": "Main Menu",
+    "general": "General",
+    "groups": "Groups",
+    "users": "Users",
+    "questions": "Questions",
+    "version": "Platform v1.0",
+    "viewReport": "View report",
+    "home": {
+      "filterLabel": "Filter by group",
+      "selectPlaceholder": "Select a group",
+      "allGroups": "All groups",
+      "noStats": "No statistics available for this group.",
+      "subtitle": "Performance statistics by group",
+      "reportLabel": "Report",
+      "generatingPdf": "Generating...",
+      "downloadPdf": "Download PDF"
+    },
+    "stats": {
+      "chartTitle": "Correct vs. Incorrect Answers by Question",
+      "totalUsers": "Total Users",
+      "activeUsers": "Active Users",
+      "totalGroups": "Total Groups",
+      "totalQuestions": "Total Questions",
+      "avgResponseTime": "Average Response Time",
+      "precision": "Accuracy",
+      "groupQuestionsStatsTableTitle": "Group Performance by Question",
+      "questionColumn": "Question",
+      "optionA": "Opt. A",
+      "optionB": "Opt. B",
+      "optionC": "Opt. C",
+      "optionD": "Opt. D",
+      "avgTime": "Avg. Time",
+      "accuracy": "Accuracy"
+    },
+    "gameStats": {
+      "title": "Group Game Results",
+      "loading": "Loading game results...",
+      "noGameStats": "No game data available for this group",
+      "user": "User",
+      "score": "Score",
+      "correct": "Correct",
+      "incorrect": "Incorrect",
+      "lives": "Lives",
+      "time": "Time",
+      "status": "Status",
+      "date": "Date",
+      "action": "Action"
+    },
+    "statsChart": {
+      "questionLabel": "Question",
+      "correctLabel": "Correct",
+      "incorrectLabel": "Incorrect"
+    }
+  },
+  "users": {
+    "title": "Users",
+    "createNew": "New User",
+    "loading": "Loading users...",
+    "selectStatus": "Select a status",
+    "filterStatus": "Filter by status",
+    "all": "All",
+    "deleteSuccess": "User deleted successfully.",
+    "deleteError": "Failed to delete user",
+    "searchPlaceholder": "Search by name or email…",
+    "noResults": "No users to display",
+    "roles": {
+      "admin": "Admin",
+      "participant": "Player",
+      "dev": "Developer",
+      "superadmin": "SuperAdmin"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending",
+      "deleted": "Deleted"
+    },
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status",
+      "createdOn": "Creation Date",
+      "actions": "Actions"
+    },
+    "dialog": {
+      "titleCreate": "Create New User",
+      "titleEdit": "Edit User",
+      "descriptionCreate": "Enter information for a new participant.",
+      "descriptionEdit": "Modify the selected user's data.",
+      "loadingData": "Loading data...",
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "passwordPlaceholder": "Enter a password",
+        "passwordHint": "Minimum 8 characters, maximum 32 characters",
+        "role": "Role",
+        "status": "Status",
+        "selectRole": "Select role",
+        "selectStatus": "Select status"
+      },
+      "buttons": {
+        "saveChanges": "Save Changes",
+        "createUser": "Create User"
+      },
+      "messages": {
+        "created": "User created successfully.",
+        "updated": "User updated successfully."
+      }
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "description": "This action will generate a new password and replace the current one.",
+      "userName": "User",
+      "userEmail": "Email Address",
+      "confirmEmail": "Confirm email address",
+      "emailPlaceholder": "Type the user's email to confirm",
+      "emailMismatch": "Email does not match",
+      "loadError": "Error loading user data",
+      "success": "Password reset successfully",
+      "error": "Error resetting password",
+      "networkError": "Network connection error",
+      "resetting": "Resetting...",
+      "confirmReset": "Yes, reset",
+      "successTitle": "Password Reset",
+      "newPassword": "New Password",
+      "copy": "Copy",
+      "copied": "Password copied to clipboard",
+      "copyWarning": "Copy it now, once closed you will need to generate a new one."
+    },
+    "updatePassword": {
+      "title": "Update Password",
+      "description": "For your security, you need your current password to change it.",
+      "fields": {
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm New Password",
+        "passwordHint": "Minimum 8 characters, maximum 32 characters"
+      },
+      "passwordMismatch": "Passwords do not match",
+      "samePassword": "New password cannot be the same as the previous one",
+      "success": "Password updated successfully",
+      "error": "Error updating password",
+      "networkError": "Network connection error",
+      "updating": "Updating...",
+      "updateButton": "Update Password"
+    }
+  },
+  "groups": {
+    "title": "Groups",
+    "createNew": "Create Group",
+    "loading": "Loading game groups...",
+    "deleteSuccess": "Group deleted successfully.",
+    "deleteError": "Failed to delete group",
+    "code": "Code",
+    "copyCode": "Copy Code",
+    "codeCopied": "Group access code copied to clipboard",
+    "copyError": "Failed to copy group access code",
+    "description": "Description",
+    "createdOn": "Created on",
+    "created": "Created",
+    "noGroups": "No game groups found. Create the first group to get started.",
+    "searchPlaceholder": "Search by name, description, or access code...",
+    "noSearchResults": "No groups found matching the search.",
+    "codeLabel": "Access Code",
+    "name": "Name",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "archived": "Archived"
+    },
+    "dialog": {
+      "titleCreate": "Create New Group",
+      "titleEdit": "Edit Group",
+      "descriptionCreate": "Provide a name and description for the new group.",
+      "descriptionEdit": "Modify the selected group's data.",
+      "codeLabel": "6-digit Code",
+      "codeHint": "Auto-generated",
+      "nameLabel": "Name *",
+      "descriptionLabel": "Description",
+      "statusLabel": "Status",
+      "errorRequired": "Group name is required.",
+      "errorCreate": "Failed to create group with status",
+      "successCreate": "Group created successfully.",
+      "buttonCreating": "Creating...",
+      "buttonSave": "Create Group",
+      "buttonUpdate": "Save Changes",
+      "buttonUpdating": "Updating..."
+    },
+    "questions": {
+      "title": "Add Questions",
+      "description": "Select the questions you want to add to the group.",
+      "loading": "Loading questions...",
+      "listTitle": "Question List",
+      "selectedTitle": "Selected Questions",
+      "searchPlaceholder": "Search question...",
+      "noSelected": "No questions selected.",
+      "buttonCancel": "Cancel",
+      "buttonSaving": "Saving...",
+      "buttonSave": "Save Changes",
+      "successUpdate": "Group questions updated successfully.",
+      "errorUpdate": "Error updating questions in the group."
+    }
+  },
+  "questions": {
+    "title": "System Question Bank",
+    "createNew": "Add Question",
+    "generateWithAI": "Generate with AI",
+    "uploadCsv": "Upload Questions CSV",
+    "loading": "Loading questions...",
+    "deleteSuccess": "Question deleted successfully.",
+    "deleteError": "Failed to delete question",
+    "reactivateSuccess": "Question reactivated successfully.",
+    "reactivateError": "Failed to reactivate question",
+    "type": "Type",
+    "language": "Language",
+    "created": "Created",
+    "status": "Status",
+    "languageLabel": {
+      "es": "ESP",
+      "en": "ENG",
+      "notAvailable": "N/A"
+    },
+    "responseOptions": "Answer Options:",
+    "tipNote": "Tip Note:",
+    "feedback": "Feedback:",
+    "correct": "Correct",
+    "dialog": {
+      "titleCreate": "Create New Question",
+      "titleEdit": "Edit Question",
+      "descriptionCreate": "Enter the information to create a new question.",
+      "descriptionEdit": "Modify the data of the selected question.",
+      "descriptionCreateOptions": "Enter the answer choices and mark the correct one.",
+      "descriptionEditOptions": "Modify or mark the correct option.",
+      "loadingData": "Loading data...",
+      "loadError": "Error loading question",
+      "saveError": "Error saving question",
+      "networkError": "Network connection error",
+      "fields": {
+        "title": "Title / Category",
+        "description": "Question Content",
+        "tipNote": "Tip Note",
+        "feedback": "Feedback",
+        "language": "Language",
+        "options": "Answer Options",
+        "option": "Option",
+        "correct": "Correct"
+      },
+      "buttons": {
+        "saveChanges": "Save Changes",
+        "createQuestion": "Create Question"
+      },
+      "messages": {
+        "created": "Question created successfully.",
+        "updated": "Question updated successfully."
+      }
+    },
+    "genAI": {
+      "title": "Generate Questions with AI",
+      "description": "Configuration to automatically generate questions using artificial intelligence.",
+      "quantity": "Quantity",
+      "difficulty": "Difficulty",
+      "language": "Language",
+      "selectDifficulty": "Select a difficulty",
+      "selectLanguage": "Select a language",
+      "levels": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
+      "languages": {
+        "es": "Spanish",
+        "en": "English"
+      },
+      "generating": "Generating questions with AI...",
+      "success": "Success:",
+      "error": "Error:",
+      "connectionError": "Error generating questions with AI. Please try again.",
+      "buttonGenerating": "Generating...",
+      "buttonGenerate": "Generate"
+    },
+    "upload": {
+      "title": "Bulk Question Upload",
+      "description": "Select a CSV file to import new questions. If you don't have the format, download the template.",
+      "fileLabel": "CSV File",
+      "selectFile": "Please select a CSV file.",
+      "uploading": "Uploading file...",
+      "success": "CSV file uploaded and processed successfully.",
+      "error": "Error processing the file.",
+      "connectionError": "Connection or network error. Check that the server is active.",
+      "buttonProcessing": "Processing...",
+      "buttonUpload": "Upload and Process",
+      "buttonDownloadTemplate": "Download CSV Template",
+      "downloadTemplateHint": "Once downloaded, open it with Excel, edit it, and upload it to correctly import your questions.",
+      "downloadTemplateError": "Error downloading the template."
+    },
+    "types": {
+      "multiple_option": "Multiple Choice",
+      "true_false": "True/False",
+      "fill_in_the_blank": "Fill in the Blank",
+      "unknown": "Unknown"
+    },
+    "uploadDetails": {
+      "title": "Upload Details",
+      "totalReceived": "Total received",
+      "created": "Questions created",
+      "skipped": "Questions skipped"
+    },
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "correctAnswer": "Correct Answer",
+    "options": "Options",
+    "searchPlaceholder": "Search by title / category or content...",
+    "filterAI": "Filter by origin",
+    "filterLang": "Filter by language",
+    "all": "All",
+    "ai": "AI",
+    "manual": "Manual",
+    "spanish": "Spanish",
+    "english": "English",
+    "noResults": "No questions match the current filters.",
+    "noQuestions": "No questions loaded, start adding a new one.",
+    "searching": "Searching...",
+    "filterStatus": "Filter by status",
+    "statusLabel": {
+      "active": "Active",
+      "actives": "Actives",
+      "inactive": "Inactive",
+      "inactives": "Inactives",
+      "deleted": "Deleted",
+      "deleteds": "Deleteds",
+      "unknown": "Unknown"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "editProfile": "Edit Profile",
+    "changePassword": "Change Password",
+    "logout": "Logout",
+    "personalInfo": "Personal Information",
+    "accountSettings": "Account Settings",
+    "loading": "Loading profile data...",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "errors": {
+      "fetchProfile": "Unable to fetch user profile data",
+      "serverConnection": "Unable to connect to the server"
+    }
+  },
+  "game": {
+    "groupStats": {
+      "title": "Group Statistics",
+      "description": "Results of all players in this group",
+      "loading": "Loading statistics...",
+      "error": "Error loading statistics",
+      "serverError": "Error connecting to the server",
+      "noStats": "No statistics available for this group",
+      "user": "Player",
+      "score": "Score",
+      "correct": "Correct",
+      "incorrect": "Incorrect",
+      "date": "Date",
+      "time": "Time",
+      "status": "Status",
+      "finished": "Finished",
+      "me": "(Me)",
+      "close": "Close"
+    },
+    "confirmStartGame": {
+      "welcome": "Welcome",
+      "ready": "You are about to start the game. Make sure you are ready to begin.",
+      "noPause": "Once you start, you cannot pause the game. Good luck!",
+      "startButton": "Start Game"
+    },
+    "start": "Start Game",
+    "end": "End Game",
+    "pause": "Pause",
+    "resume": "Resume",
+    "score": "Score",
+    "time": "Time",
+    "question": "Question",
+    "of": "of",
+    "submit": "Submit Answer",
+    "nextQuestion": "Next Question",
+    "finish": "Finish",
+    "results": "Results",
+    "correct": "Correct",
+    "incorrect": "Incorrect",
+    "questionNumber": "Question",
+    "lives": "Lives",
+    "respond": "Submit",
+    "continue": "Continue",
+    "saving": "Saving...",
+    "confirmStart": {
+      "title": "Confirm Game Start",
+      "message": "Are you sure you want to start the game?",
+      "confirm": "Yes, start",
+      "cancel": "Cancel"
+    },
+    "gameEnd": {
+      "title": "Game Over!",
+      "message": "You have completed the game.",
+      "score": "Your final score",
+      "playAgain": "Play again",
+      "backToMenu": "Back to menu",
+      "description": "You have completed all the questions",
+      "correctAnswer": "Correct Answers",
+      "totalTime": "Total Time:",
+      "groupStats": "Group Game Statistics",
+      "pts": "pts."
+    },
+    "access": {
+      "title": "Access a Game",
+      "userNameLabel": "Username",
+      "userNamePlaceholder": "Enter username",
+      "gameCodeLabel": "Game Code",
+      "gameCodePlaceholder": "Enter game code",
+      "accessButton": "Access Game",
+      "loading": "Loading...",
+      "errorLoading": "Error loading the game",
+      "invalidCode": "Invalid game code",
+      "redirect": "Game started successfully, redirecting...",
+      "serverError": "Server error. Please try again later.",
+      "errorLoadingGroup": "Error loading the group information.",
+      "unauthenticatedUser": "Unauthenticated user."
+    },
+    "found": {
+      "title": "Game Found",
+      "message": "Are you sure you want to start the game <b>\"#{{code}}\"</b>?",
+      "confirm": "Start",
+      "loading": "Loading..."
+    }
+  },
+  "report": {
+    "userAttempt": {
+      "title": "Individual Game Report",
+      "description": "Player performance and answer details.",
+      "loading": "Loading report...",
+      "summary": "Overview",
+      "generalInfo": "General Information",
+      "username": "Username",
+      "group": "Group",
+      "groupCode": "Group Code",
+      "results": "Results",
+      "score": "Score",
+      "correct": "Correct",
+      "incorrect": "Incorrect",
+      "lives": "Lives remaining",
+      "timeSection": "Time",
+      "duration": "Duration",
+      "started": "Started",
+      "finished": "Finished",
+      "questionDetail": "Question Details",
+      "badgeCorrect": "Correct",
+      "badgeIncorrect": "Incorrect",
+      "responseTimeTooltip": "Answer time",
+      "optionsLabel": "Answer options:",
+      "correctAnswerInfo": "The correct answer was:",
+      "feedback": "Feedback",
+      "loadError": "Error loading game report",
+      "noData": "Could not load the report",
+      "close": "Close",
+      "downloadPdf": "Download PDF",
+      "downloadingPdf": "Downloading PDF..."
+    }
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "language": "Language"
+  },
+  "footer": {
+    "copyright": "© 2026 Educational Games Platform. All rights reserved.",
+    "version": "Version"
+  },
+  "errors": {
+    "notFound": "Page not found",
+    "serverError": "Server error",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "badRequest": "Bad request",
+    "networkError": "Network error",
+    "unexpectedError": "Unexpected error"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Invalid email address",
+    "minLength": "Minimum {{count}} characters",
+    "maxLength": "Maximum {{count}} characters",
+    "passwordMatch": "Passwords must match"
+  },
+  "genericDialogs": {
+    "delete": {
+      "title": "Confirm Deletion",
+      "description": "This action will delete {{itemType}} '{{itemName}}'",
+      "message": "Are you sure you want to continue?",
+      "warning": "This action cannot be undone.",
+      "confirmAction": "Yes, delete",
+      "cancel": "Cancel",
+      "itemTypes": {
+        "user": "the user",
+        "group": "the group",
+        "question": "the question"
+      }
+    },
+    "reactivate": {
+      "title": "Reactivate question",
+      "description": "This action will set the question '{{itemName}}' as active",
+      "message": "Are you sure you want to continue?",
+      "confirmAction": "Reactivate",
+      "cancel": "Cancel",
+      "error": "An error occurred while trying to reactivate the question."
+    },
+    "save": {
+      "title": "Save Changes",
+      "message": "Do you want to save the changes made?",
+      "confirmAction": "Save",
+      "cancel": "Cancel"
+    }
+  }
+}
