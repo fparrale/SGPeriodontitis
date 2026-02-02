@@ -1,3 +1,4 @@
+import { formatMysqlMadridToUser } from "@/lib/utils";
 import {
     Document,
     Page,
@@ -45,18 +46,36 @@ const formatTime = (seconds: number): string => {
 };
 
 const formatDateTime = (dateString: string): string => {
-    if (!dateString) return "N/A";
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat("es-EC", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-    }).format(date);
+    if (!dateString || dateString === 'null' || dateString === 'undefined') return "N/A";
+    
+    try {
+        let date: Date;
+        
+        // Si ya viene en formato ISO, usarlo directamente
+        if (dateString.includes('T')) {
+            date = new Date(dateString);
+        } else {
+            // Si viene en formato MySQL, convertir a fecha del usuario
+            date = formatMysqlMadridToUser(dateString);
+        }
+        
+        // Verificar si la fecha es válida
+        if (isNaN(date.getTime())) return "N/A";
+        
+        // Usar la zona horaria y locale del navegador del usuario
+        return new Intl.DateTimeFormat(navigator.language, {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+        }).format(date);
+    } catch (error) {
+        console.error('Error formatting date:', dateString, error);
+        return "N/A";
+    }
 };
-
 const styles = StyleSheet.create({
     page: { padding: 26, fontSize: 11, color: "#111827" },
 

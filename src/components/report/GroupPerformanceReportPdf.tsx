@@ -1,3 +1,4 @@
+import { formatMysqlMadridToUser } from "@/lib/utils";
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 
 type QuestionGroupData = {
@@ -139,7 +140,7 @@ export function GroupPerformanceReportPdf(props: {
 
     function formatDateTime(iso?: string | null): string {
         if (!iso) return "-";
-        const d = new Date(iso);
+        const d = new Date(formatMysqlMadridToUser(iso));
         if (Number.isNaN(d.getTime())) return "-";
         return d.toLocaleString(undefined, {
             year: "numeric",

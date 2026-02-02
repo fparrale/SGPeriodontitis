@@ -12,6 +12,7 @@ import { Button } from "../ui/button";
 import { UserAttemptReportDialog } from "../report/UserAttemptReportDialog";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { GroupPerformanceReportPdf } from "../report/GroupPerformanceReportPdf";
+import { formatMysqlMadridToUser } from "@/lib/utils";
 
 // Define el tipo para la respuesta individual del grupo
 export interface GameGroup {
@@ -156,7 +157,7 @@ const DashboardHome = () => {
     }
 
     function formatDate(dateString: string): string {
-        const date = new Date(dateString);
+        const date = new Date(formatMysqlMadridToUser(dateString));
         return date.toLocaleDateString('es-ES', {
             day: '2-digit',
             month: '2-digit',
@@ -216,6 +217,15 @@ const DashboardHome = () => {
             : "bg-rose-50 text-rose-700"
             }`;
     };
+
+    const  getStatusLabel = ({ status }: { status: string; }): string => {
+        const statusMap: Record<string, string> = {
+            finished: t('dashboard.gameStats.statusFinished'),
+            failed: t('dashboard.gameStats.statusFailed'),
+        };
+
+        return statusMap[status] || status;
+    }
 
 
     if (loadingGroups) {
@@ -486,7 +496,7 @@ const DashboardHome = () => {
                                                             : "bg-yellow-100 text-yellow-700"
                                                             }`}
                                                     >
-                                                        {stat.status === "finished" ? "Finalizado" : stat.status}
+                                                        {getStatusLabel({ status: stat.status })}
                                                     </span>
                                                 </TableCell>
                                                 <TableCell className="text-center text-sm">

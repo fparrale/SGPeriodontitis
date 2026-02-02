@@ -16,6 +16,7 @@ import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { API_BASE } from "@/lib/config";
+import { formatMysqlMadridToUser } from "@/lib/utils";
 
 type UploadResponse = {
     created: number;
@@ -170,7 +171,7 @@ const DashboardQuestions = () => {
     };
 
     const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
+        const date = new Date(formatMysqlMadridToUser(dateString));
         return date.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
     };
 

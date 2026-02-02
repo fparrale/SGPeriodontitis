@@ -19,6 +19,7 @@ import {
 } from "../ui/table";
 import { Trophy, Clock, User, Heart, CalendarClock, CircleCheck, CircleX, BadgeQuestionMark } from "lucide-react";
 import { API_BASE } from "@/lib/config";
+import { formatMysqlMadridToUser } from "@/lib/utils";
 
 interface GameStats {
     id: string;
@@ -216,7 +217,7 @@ export const GroupStatsDialog = ({
                                                 </TableCell>
                                                 <TableCell className="text-center">
                                                     <span className="font-semibold text-blue-600">
-                                                        {stat.created_on}
+                                                        {formatMysqlMadridToUser(stat.created_on).toLocaleString()}
                                                     </span>
                                                 </TableCell>
                                                 <TableCell className="text-center text-purple-600 font-medium">

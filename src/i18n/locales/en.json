@@ -134,7 +134,9 @@
       "time": "Time",
       "status": "Status",
       "date": "Date",
-      "action": "Action"
+      "action": "Action",
+      "statusFinished": "Finished",
+      "statusFailed": "Failed"
     },
     "statsChart": {
       "questionLabel": "Question",

@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { DateTime } from 'luxon';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -45,4 +46,14 @@ export function generatePassword(length = 8): string {
 
 
   return password.sort(() => Math.random() - 0.5).join('');
+}
+
+
+export function formatMysqlMadridToUser(mysql: string, locale = navigator.language) {
+  const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  const dt = DateTime.fromFormat(mysql, "yyyy-MM-dd HH:mm:ss", { zone: "Europe/Madrid" })
+    .setZone(userTz);
+
+  return dt.setLocale(locale).toJSDate();
 }

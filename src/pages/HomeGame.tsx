@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { toastCorrect, toastIncorrect } from "@/lib/gameToasts";
 import { t } from "i18next";
 import { API_BASE } from "@/lib/config";
+import { formatMysqlMadridToUser } from "@/lib/utils";
 
 // Interfaces
 interface QuestionOption {
@@ -399,25 +400,25 @@ useEffect(() => {
     return heartsComponent;
   };
 
-  // Función para convertir string de fecha a zona horaria local
-  const convertToLocalTime = (dateString: string) => {
-    // dateString viene como "2026-02-01 20:57:32" PERO YA ESTÁ EN HORA LOCAL
-    // Reemplazar el espacio por T
-    const isoString = dateString.replace(" ", "T");
+  // // Función para convertir string de fecha a zona horaria local
+  // const convertToLocalTime = (dateString: string) => {
+  //   // dateString viene como "2026-02-01 20:57:32" PERO YA ESTÁ EN HORA LOCAL
+  //   // Reemplazar el espacio por T
+  //   const isoString = dateString.replace(" ", "T");
 
-    // Crear la fecha Y LUEGO RESTAR 5 HORAS porque JavaScript la interpreta como UTC
-    // pero en realidad ya está en UTC-5
-    const utcDate = new Date(isoString);
-    const offset = 6 * 60 * 60 * 1000; // 5 horas
-    const localDate = new Date(utcDate.getTime() - offset);
+  //   // Crear la fecha Y LUEGO RESTAR 5 HORAS porque JavaScript la interpreta como UTC
+  //   // pero en realidad ya está en UTC-5
+  //   const utcDate = new Date(isoString);
+  //   const offset = 6 * 60 * 60 * 1000; // 5 horas
+  //   const localDate = new Date(utcDate.getTime() - offset);
 
-    return localDate;
-  };
+  //   return localDate;
+  // };
 
   useEffect(() => {
     if (!gameData || showGameEndDialog || gameData.finished_on !== null) return;
     const interval = setInterval(() => {
-      const startedOn = convertToLocalTime(gameData.started_on);
+      const startedOn = formatMysqlMadridToUser(gameData.started_on);
       console.log("data game:", startedOn);
 
       const elapsedSeconds = Math.floor(
@@ -440,8 +441,8 @@ useEffect(() => {
   const getSecondsBetween = (start: string, end: string): number => {
     if (!start || !end) return 0;
 
-    const startDate = convertToLocalTime(start);
-    const endDate = convertToLocalTime(end);
+    const startDate = formatMysqlMadridToUser(start);
+    const endDate = formatMysqlMadridToUser(end);
 
     return Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
   };

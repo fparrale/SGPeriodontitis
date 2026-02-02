@@ -9,6 +9,7 @@ import { Button } from "../ui/button";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { UserAttemptReportPdf } from "./UserAttemptReportPdf";
 import { API_BASE } from "@/lib/config";
+import { formatMysqlMadridToUser } from "@/lib/utils";
 
 
 interface QuestionDetail {
@@ -118,7 +119,7 @@ export function UserAttemptReportDialog({ groupId, userId, gameId, triggerCompon
 
     const formatDateTime = (dateString: string): string => {
         if (!dateString) return 'N/A';
-        const date = new Date(dateString);
+        const date = new Date(formatMysqlMadridToUser(dateString));
         return new Intl.DateTimeFormat('es-ES', {
             day: '2-digit',
             month: '2-digit',
@@ -145,7 +146,14 @@ export function UserAttemptReportDialog({ groupId, userId, gameId, triggerCompon
                     </div>
                     {reportData && (
                         <PDFDownloadLink
-                            document={<UserAttemptReportPdf data={reportData} />}
+                            document={<UserAttemptReportPdf data={{
+                                ...reportData,
+                                summary: {
+                                    ...reportData.summary,
+                                    game_started_on: formatMysqlMadridToUser(reportData.summary.game_started_on).toISOString(),
+                                    game_finished_on: formatMysqlMadridToUser(reportData.summary.game_finished_on).toISOString(),
+                                }
+                            }} />}
                             fileName={`game_report_${reportData.summary.user_name}_${reportData.summary.group_code}_${reportData.summary.game_id}.pdf`}
                         >
                             {({ loading }) => (

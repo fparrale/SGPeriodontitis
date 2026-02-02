@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { Input } from "../ui/input";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { API_BASE } from "@/lib/config";
+import { formatMysqlMadridToUser } from "@/lib/utils";
 
 
 export interface AppUser {
@@ -144,10 +145,15 @@ const DashboardUser = () => {
     };
 
     const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
+        const date = new Date(formatMysqlMadridToUser(dateString));
         return date.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
     };
 
+    // para refrescar data después de crear/editar/borrar un usuario
+    const handleDataRefresh = () => {
+        fetchUsers();
+
+    };
 
     if (loadingUsers) {
         return (
@@ -157,11 +163,6 @@ const DashboardUser = () => {
             </div>
         );
     }
-    // para refrescar data después de crear/editar/borrar un usuario
-    const handleDataRefresh = () => {
-        fetchUsers();
-
-    };
 
     return (
         <Card className="w-full shadow-xl h-[81vh] overflow-auto border-t-4 border-sky-300">

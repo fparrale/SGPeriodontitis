@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { API_BASE } from "@/lib/config";
+import { formatMysqlMadridToUser } from "@/lib/utils";
 
 export interface GameGroup {
     id: string;
@@ -59,7 +60,7 @@ const DashboardGroups = () => {
     };
 
     const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
+        const date = new Date(formatMysqlMadridToUser(dateString));
         return date.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
     };
 
