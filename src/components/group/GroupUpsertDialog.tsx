@@ -142,17 +142,11 @@ const GameGroupUpsertDialog: React.FC<GameGroupUpsertDialogProps> = ({ group, tr
                 },
                 body: JSON.stringify(groupData),
             });
-
+            console.log('Respuesta recibida:', response);
             const responseData = await response.json();
             console.log('Respuesta del servidor:', responseData);
-
-            const expectedStatus = isEditMode ? 200 : 201;
-
-            if (!response.ok || response.status !== expectedStatus) {
-                const errorMessage = responseData.message || (isEditMode ? t('groups.dialog.errorUpdate', 'Error al actualizar el grupo') : t('groups.dialog.errorCreate'));
-                toast.error(errorMessage);
-                setError(errorMessage);
-            } else {
+            
+            if( response.status === 200 || response.status === 201 ){
                 console.log(`Grupo ${isEditMode ? 'actualizado' : 'creado'} con éxito`, responseData);
 
                 setName('');
@@ -162,6 +156,10 @@ const GameGroupUpsertDialog: React.FC<GameGroupUpsertDialogProps> = ({ group, tr
                 setIsOpen(false);
                 toast.success(isEditMode ? t('groups.dialog.successUpdate', 'Grupo actualizado exitosamente') : t('groups.dialog.successCreate'));
                 onSuccess();
+            }else{ 
+                const errorMessage = responseData.message || (isEditMode ? t('groups.dialog.errorUpdate', 'Error al actualizar el grupo') : t('groups.dialog.errorCreate'));
+                toast.error(errorMessage);
+                setError(errorMessage);
             }
         } catch (err) {
             console.error(`Error al ${isEditMode ? 'actualizar' : 'crear'} el grupo:`, err);
