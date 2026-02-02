@@ -218,7 +218,7 @@ const DashboardQuestions = () => {
     }
 
     return (
-        <Card className="w-full max-w-7xl h-[83vh] shadow-xl border-t-4 border-sky-300 flex flex-col">
+        <Card className="w-full h-[81vh] shadow-xl border-t-4 border-sky-300 flex flex-col">
 
             <CardHeader className="bg-gray-50 p-6 border-b border-gray-100 flex flex-col gap-4 flex-shrink-0">
                 <div className="flex flex-row items-center justify-between w-full">

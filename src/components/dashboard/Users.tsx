@@ -164,7 +164,7 @@ const DashboardUser = () => {
     };
 
     return (
-        <Card className="w-full shadow-xl h-[83vh] overflow-auto border-t-4 border-sky-300">
+        <Card className="w-full shadow-xl h-[81vh] overflow-auto border-t-4 border-sky-300">
 
             <CardHeader className="bg-gray-50 p-6 border-b border-gray-100 flex flex-row items-center justify-between">
                 <div className="flex items-center gap-3">

@@ -170,7 +170,7 @@ const DashboardGroups = () => {
         .map((code) => ({ codigo: code }));
 
     return (
-        <Card className="w-full max-w-7xl shadow-xl border-t-4 border-sky-300">
+        <Card className="w-full h-[81vh] shadow-xl border-t-4 border-sky-300">
 
             {/* --- Card Header (Título y Botón de Acción) --- */}
             <CardHeader className="bg-gray-50 p-6 border-b border-gray-100">
