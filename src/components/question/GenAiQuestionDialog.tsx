@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Loader2, Wand2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
@@ -60,6 +59,7 @@ export default function GenAiQuestionDialog({ fetchQuestions, showInfoModal }: G
                     lang: selectedLanguage,
                 }),
             });
+
             const data = await response.json();
 
             if (response.ok && data.status === 200) {
@@ -81,9 +81,17 @@ export default function GenAiQuestionDialog({ fetchQuestions, showInfoModal }: G
     };
 
 
-
     return (
-        <Dialog open={open} onOpenChange={(open: boolean) => { setOpen(open); if (!open) setUploadStatus('idle'); }}>
+        <Dialog open={open} onOpenChange={(open: boolean) => {
+            setOpen(open);
+            if (!open) {
+                setUploadStatus('idle');
+                setQuestionCount(5);
+                setSelectedDifficulty('baja');
+                setSelectedLanguage('es');
+                setMessage('');
+            }
+        }}>
             {/* Botón que Abre el Modal */}
             <DialogTrigger asChild>
                 <Button className="bg-sky-500 hover:bg-sky-600 font-semibold shadow-md shadow-sky-300/40" >
@@ -106,42 +114,51 @@ export default function GenAiQuestionDialog({ fetchQuestions, showInfoModal }: G
                         <Label htmlFor="cantidad" className="text-right font-medium">
                             {t('questions.genAI.quantity')}
                         </Label>
-                        <Input
-                            id="cantidad"
-                            type="number"
-                            min={5}
-                            max={10}
-                            onChange={(e) => setQuestionCount(Number(e.target.value))}
-                            defaultValue={questionCount}
-                            disabled={true}
-                            className="col-span-3 border-sky-300 focus:border-sky-500"
-                        />
+                        <div className="col-span-3 flex gap-2">
+                            {[5, 10, 15].map((count) => (
+                                <Button
+                                    key={count}
+                                    type="button"
+                                    variant={questionCount === count ? "default" : "outline"}
+                                    onClick={() => setQuestionCount(count)}
+                                    className={`flex-1 transition-all ${questionCount === count
+                                        ? 'bg-sky-200 hover:bg-sky-300 text-gray-800 border border-sky-400 shadow-sm'
+                                        : 'hover:bg-sky-50 hover:border-sky-400'
+                                        }`}
+                                    disabled={isGenerating}
+                                >
+                                    {count}
+                                </Button>
+                            ))}
+                        </div>
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="dificultad" className="text-right font-medium">
                             {t('questions.genAI.difficulty')}
                         </Label>
-                        <Select onValueChange={setSelectedDifficulty} defaultValue='baja' disabled={true}>
-                            <SelectTrigger>
-                                <SelectValue placeholder={t('questions.genAI.selectDifficulty')} defaultValue={selectedDifficulty} />
-                            </SelectTrigger>
-
-                            <SelectContent>
-
-                                {/* OPCIONES REALES */}
-                                {difficultyLevels.map((g) => (
-                                    <SelectItem key={g.value} value={g.value}>
-                                        {g.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                        <div className="col-span-3 flex gap-2">
+                            {difficultyLevels.map((level) => (
+                                <Button
+                                    key={level.value}
+                                    type="button"
+                                    variant={selectedDifficulty === level.value ? "default" : "outline"}
+                                    onClick={() => setSelectedDifficulty(level.value)}
+                                    className={`flex-1 transition-all ${selectedDifficulty === level.value
+                                        ? 'bg-sky-200 hover:bg-sky-300 text-gray-800 border border-sky-400 shadow-sm'
+                                        : 'hover:bg-sky-50 hover:border-sky-400'
+                                        }`}
+                                    disabled={isGenerating}
+                                >
+                                    {level.label}
+                                </Button>
+                            ))}
+                        </div>
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="idioma" className="text-right font-medium">
                             {t('questions.genAI.language')}
                         </Label>
-                        <Select onValueChange={setSelectedLanguage} defaultValue='es'>
+                        <Select onValueChange={setSelectedLanguage} defaultValue='es' disabled={isGenerating}>
                             <SelectTrigger>
                                 <SelectValue placeholder={t('questions.genAI.selectLanguage')} defaultValue={selectedLanguage} />
                             </SelectTrigger>
