@@ -49,7 +49,7 @@
       "¡Tú puedes! Piensa bien 🧠"
     ],
     "correctAnswer": "¡Respuesta correcta!",
-    "incorrectAnswer": "Respuesta incorrecta"
+    "incorrectAnswer": "Ups! elegiste mal..."
   },
   "auth": {
     "login": {
@@ -453,21 +453,27 @@
       "error": "Error al cargar estadísticas",
       "serverError": "Error al conectar con el servidor",
       "noStats": "No hay estadísticas disponibles para este grupo",
+      "position": "Posición",
       "user": "Jugador",
       "score": "Puntos",
       "correct": "Correctas",
       "incorrect": "Incorrectas",
       "date": "Fecha",
       "time": "Tiempo",
+      "accuracy": "Precisión",
       "status": "Estado",
       "finished": "Finalizado",
+      "failed": "Fallido",
       "me": "(Yo)",
-      "close": "Cerrar"
+      "close": "Cerrar",
+      "viewMyResult": "Mi resultado"
     },
     "confirmStartGame": {
       "welcome": "Bienvenido",
-      "ready": "Estás a punto de iniciar el juego. Asegúrate de estar listo para comenzar.",
+      "ready": "¿Listo para comenzar?",
       "noPause": "Una vez que inicies, no podrás pausar el juego. ¡Buena suerte!",
+      "periodontitisInfo": "🦷 La periodontitis puede avanzar sin dolor y afectar seriamente la salud bucal, siendo una de las principales causas de pérdida dental. Detectarla a tiempo marca la diferencia.",
+      "attentionNote": "👀 Presta mucha atención al contenido. Tus dientes te lo agradecerán.",
       "startButton": "Iniciar Juego"
     },
     "start": "Iniciar Juego",
@@ -475,6 +481,8 @@
     "pause": "Pausar",
     "resume": "Reanudar",
     "score": "Puntuación",
+    "points": "puntos!",
+    "tip": "Pista",
     "time": "Tiempo",
     "question": "Pregunta",
     "of": "de",
@@ -489,6 +497,15 @@
     "respond": "Responder",
     "continue": "Continuar",
     "saving": "Guardando...",
+    "abort": {
+      "title": "Abortar partida",
+      "description": "Vas a terminar la partida antes de tiempo.",
+      "message": "Se registrarán tus resultados hasta este momento.",
+      "confirm": "Sí, abortar",
+      "cancel": "Cancelar",
+      "success": "Partida abortada correctamente.",
+      "error": "No se pudo abortar la partida. Intenta nuevamente."
+    },
     "confirmStart": {
       "title": "Confirmar Inicio de Juego",
       "message": "¿Estás seguro de que quieres iniciar el juego?",

@@ -49,7 +49,11 @@ export function generatePassword(length = 8): string {
 }
 
 
-export function formatMysqlMadridToUser(mysql: string, locale = navigator.language) {
+export function formatMysqlMadridToUser(mysql: string | null | undefined, locale = navigator.language) {
+  if (!mysql || typeof mysql !== "string") {
+    return new Date();
+  }
+
   const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const dt = DateTime.fromFormat(mysql, "yyyy-MM-dd HH:mm:ss", { zone: "Europe/Madrid" })

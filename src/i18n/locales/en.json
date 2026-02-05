@@ -49,7 +49,7 @@
       "You can do it! Think well 🧠"
     ],
     "correctAnswer": "Correct answer!",
-    "incorrectAnswer": "Incorrect answer"
+    "incorrectAnswer": "Oops! Not the right choice..."
   },
   "auth": {
     "login": {
@@ -453,21 +453,27 @@
       "error": "Error loading statistics",
       "serverError": "Error connecting to the server",
       "noStats": "No statistics available for this group",
+      "position": "Position",
       "user": "Player",
       "score": "Score",
       "correct": "Correct",
       "incorrect": "Incorrect",
       "date": "Date",
       "time": "Time",
+      "accuracy": "Accuracy",
       "status": "Status",
       "finished": "Finished",
+      "failed": "Failed",
       "me": "(Me)",
-      "close": "Close"
+      "close": "Close",
+      "viewMyResult": "My Result"
     },
     "confirmStartGame": {
       "welcome": "Welcome",
-      "ready": "You are about to start the game. Make sure you are ready to begin.",
+      "ready": "Are you ready to start?",
       "noPause": "Once you start, you cannot pause the game. Good luck!",
+      "periodontitisInfo": "🦷 Periodontitis can progress without pain and seriously affect oral health, being one of the leading causes of tooth loss. Detecting it early makes a difference.",
+      "attentionNote": "👀 Pay close attention to the content. Your teeth will thank you.",
       "startButton": "Start Game"
     },
     "start": "Start Game",
@@ -475,6 +481,8 @@
     "pause": "Pause",
     "resume": "Resume",
     "score": "Score",
+    "points": "points!",
+    "tip": "Hint",
     "time": "Time",
     "question": "Question",
     "of": "of",
@@ -489,6 +497,15 @@
     "respond": "Submit",
     "continue": "Continue",
     "saving": "Saving...",
+    "abort": {
+      "title": "Abort game",
+      "description": "You are about to end the game early.",
+      "message": "Your results up to this point will be saved.",
+      "confirm": "Yes, abort",
+      "cancel": "Cancel",
+      "success": "Game aborted successfully.",
+      "error": "Unable to abort the game. Please try again."
+    },
     "confirmStart": {
       "title": "Confirm Game Start",
       "message": "Are you sure you want to start the game?",

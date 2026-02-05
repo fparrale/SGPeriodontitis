@@ -6,12 +6,15 @@ import type { Game, GameStartResponse } from "@/types/gameType";
 
 import {
   Key,
+  Ban,
   Heart,
   HeartCrack,
   Lightbulb,
   Trophy,
   HelpCircle,
   Clock,
+  CheckCircle,
+  XCircle,
 } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
@@ -20,6 +23,7 @@ import { toastCorrect, toastIncorrect } from "@/lib/gameToasts";
 import { t } from "i18next";
 import { API_BASE } from "@/lib/config";
 import { formatMysqlMadridToUser } from "@/lib/utils";
+import { AbortGameDialog } from "@/components/game/AbortGameDialog";
 
 // Interfaces
 interface QuestionOption {
@@ -77,13 +81,15 @@ export const HomeGame = () => {
   const [hasFoundFirstQuestion, setHasFoundFirstQuestion] = useState(false);
   const [answerResponse, setAnswerResponse] =
     useState<answerResponseType | null>(null);
-const [loadingNextQuestion, setLoadingNextQuestion] = useState(false);
+  const [loadingNextQuestion, setLoadingNextQuestion] = useState(false);
+  const [previousScore, setPreviousScore] = useState<number>(0);
+  const [isAbortingGame, setIsAbortingGame] = useState(false);
   const { gameId } = useParams();
   const userSession = JSON.parse(localStorage.getItem("auth_user") || "null");
 
   // Refresca gameData sin bloquear la UI
-  const refreshGameData = useCallback(async () => {
-    if (!userSession || !userSession.id || !gameId) return;
+  const refreshGameData = useCallback(async (): Promise<Game | null> => {
+    if (!userSession || !userSession.id || !gameId) return null;
     try {
       setLoadingGameData(true);
       setLoadingUpdate(true);
@@ -106,10 +112,12 @@ const [loadingNextQuestion, setLoadingNextQuestion] = useState(false);
         setLoadingGameData(false);
         console.log("gameData refrescado:", data.data);
         setLoadingUpdate(false);
+        return gameDataWithLifes;
       }
     } catch (error) {
       console.error("No se pudo refrescar gameData:", error);
     }
+    return null;
   }, [gameId, userSession]);
 
   const getGameCreated = useCallback(async () => {
@@ -194,6 +202,48 @@ const [loadingNextQuestion, setLoadingNextQuestion] = useState(false);
       console.error("Error al iniciar el juego:", err);
       toast.error("Error cargar el juego.");
       setGameData(null);
+    }
+  };
+
+  const abortGame = async (): Promise<boolean> => {
+    if (!userSession || !userSession.id || !gameId) {
+      toast.error(t("game.access.unauthenticatedUser"));
+      return false;
+    }
+
+    try {
+      setIsAbortingGame(true);
+      const response = await fetch(`${API_BASE}/games/save`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "FNS",
+          game_id: gameId,
+          user_id: userSession.id,
+        }),
+      });
+
+      const data = (await response.json()) as GameStartResponse;
+
+      if (data.status === 200 || data.status === 201) {
+        const gameDataWithLifes = { ...data.data, lifes: data.data.lifes };
+        setGameData(gameDataWithLifes);
+
+        await refreshGameData();
+
+        setShowGameEndDialog(true);
+        toast.success(t("game.abort.success"));
+        return true;
+      } else {
+        toast.error(data.message || t("game.abort.error"));
+        return false;
+      }
+    } catch (error) {
+      console.error("Error al abortar la partida:", error);
+      toast.error(t("game.abort.error"));
+      return false;
+    } finally {
+      setIsAbortingGame(false);
     }
   };
 
@@ -296,6 +346,8 @@ const [loadingNextQuestion, setLoadingNextQuestion] = useState(false);
       return false;
     }
 
+
+
     const datatosend = {
       answer_id: currentAnswerId,
       group_id: gameData.group_id,
@@ -352,20 +404,20 @@ const [loadingNextQuestion, setLoadingNextQuestion] = useState(false);
     }
   };
 
-// Buscar primera pregunta no respondida al cargar (solo una vez)
-useEffect(() => {
-  if (
-    questions.length > 0 &&
-    !loadingQuestions &&
-    gameData &&
-    !isSearchingFirstQuestion &&
-    !hasFoundFirstQuestion &&
-    actualQuestionIndex === 0 // Solo buscar si estamos al inicio
-  ) {
-    findFirstUnansweredQuestion();
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [questions.length, loadingQuestions, gameData, hasFoundFirstQuestion]);
+  // Buscar primera pregunta no respondida al cargar (solo una vez)
+  useEffect(() => {
+    if (
+      questions.length > 0 &&
+      !loadingQuestions &&
+      gameData &&
+      !isSearchingFirstQuestion &&
+      !hasFoundFirstQuestion &&
+      actualQuestionIndex === 0 // Solo buscar si estamos al inicio
+    ) {
+      findFirstUnansweredQuestion();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [questions.length, loadingQuestions, gameData, hasFoundFirstQuestion]);
 
 
   const formatTime = (totalSeconds: number) => {
@@ -416,7 +468,14 @@ useEffect(() => {
   // };
 
   useEffect(() => {
-    if (!gameData || showGameEndDialog || gameData.finished_on !== null) return;
+    if (
+      !gameData ||
+      !gameData.started_on ||
+      showGameEndDialog ||
+      gameData.finished_on !== null
+    ) {
+      return;
+    }
     const interval = setInterval(() => {
       const startedOn = formatMysqlMadridToUser(gameData.started_on);
       console.log("data game:", startedOn);
@@ -535,108 +594,163 @@ useEffect(() => {
                     <div className="flex items-center justify-center h-40">
                       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sky-500"></div>
                     </div>
-                      ): (
-                        
-                     <>
+                  ) : (
 
-                   <div className="font-bold mb-4 text-lg">
-                    {questions[actualQuestionIndex].description}
-                  </div>
+                    <>
 
-                  <div className="grid gap-2 grid-cols-2">
-                    {questions[actualQuestionIndex].options.map(
-                      (option, index) => (
-                        <div
-                          key={index}
-                          className="flex p-3 rounded-lg items-center bg-blue-100 mb-1 cursor-pointer justify-start space-x-2 w-full"
-                        >
-                          <input
-                            type="radio"
-                            id={`option-${index}`}
-                            disabled={showContinueButton}
-                            name="question1"
-                            value={option.text_option}
-                            checked={selectedAnswer === option.text_option}
-                            onChange={() =>
-                              setSelectedAnswer(option.text_option)
-                            }
-                            className="w-4 h-4 text-sky-600 bg-gray-100 border-gray-300 focus:ring-sky-500"
-                          />
-                          <label
-                            htmlFor={`option-${index}`}
-                            className="ml-2 text-sm font-medium text-gray-900"
-                            >
-                            {option.text_option}
-                          </label>
-                        </div>
-                      ),
-                    )}
-                  </div>
-
-                  {showContinueButton && answerResponse && (
-                    <div
-                    className={`mt-4 p-4 rounded-lg shadow-sm border-l-4 ${
-                      answerResponse.is_correct === 1
-                      ? "bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-500"
-                      : "bg-gradient-to-r from-orange-50 to-amber-50 border-yellow-500"
-                    }`}
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 mt-0.5">
-                          <Lightbulb
-                            className={`w-5 h-5 ${
-                              answerResponse.is_correct === 1
-                              ? "text-emerald-600"
-                              : "text-yellow-600"
-                            }`}
-                            />
-                        </div>
-                        <div>
-                          <p
-                            className={`text-sm font-semibold mb-1 ${
-                              answerResponse.is_correct === 1
-                              ? "text-emerald-800"
-                              : "text-yellow-800"
-                            }`}
-                            >
-                            {answerResponse.is_correct === 1
-                              ? t("toasts.correctAnswer")
-                              : t("toasts.incorrectAnswer")}
-                          </p>
-                          <p
-                            className={`text-sm leading-relaxed ${
-                              answerResponse.is_correct === 1
-                              ? "text-emerald-700"
-                              : "text-yellow-500"
-                            }`}
-                          >
-                            {questions[actualQuestionIndex].feedback}
-                          </p>
-                        </div>
+                      <div className="font-bold mb-4 text-lg">
+                        {questions[actualQuestionIndex].description}
                       </div>
-                    </div>
-                  )} 
-                  </>
 
-                   )
-                    
-                    }
+                      <div className="grid gap-2 grid-cols-2">
+                        {questions[actualQuestionIndex].options.map(
+                          (option, index) => {
+                            const isSelected = selectedAnswer === option.text_option;
+                            const isCorrectOption = option.is_correct === 1;
+                            const showIconFeedback = showContinueButton && answerResponse;
+                            const userWasCorrect = answerResponse?.is_correct === 1;
+
+                            // estilo de fondo de las opciones segun la retroalimentación
+                            let bgColor = "bg-blue-100";
+                            if (showIconFeedback) {
+                              if (isSelected && userWasCorrect) {
+                                bgColor = "bg-blue-100 border-2 border-blue-300";
+                              } else if (isSelected && !userWasCorrect) {
+                                bgColor = "bg-blue-100";
+                              } else if (isCorrectOption && !userWasCorrect) {
+                                bgColor = "bg-blue-100";
+                              }
+                            }
+
+                            return (
+                              <div
+                                key={index}
+                                className={`flex p-3 rounded-lg items-center mb-1 cursor-pointer justify-between space-x-2 w-full ${bgColor}`}
+                              >
+                                <div className="flex items-center space-x-2">
+                                  <input
+                                    type="radio"
+                                    id={`option-${index}`}
+                                    disabled={showContinueButton}
+                                    name="question1"
+                                    value={option.text_option}
+                                    checked={isSelected}
+                                    onChange={() =>
+                                      setSelectedAnswer(option.text_option)
+                                    }
+                                    className="w-4 h-4 text-sky-600 bg-gray-100 border-gray-300 focus:ring-sky-500"
+                                  />
+                                  <label
+                                    htmlFor={`option-${index}`}
+                                    className="text-sm font-medium text-gray-900"
+                                  >
+                                    {option.text_option}
+                                  </label>
+                                </div>
+                                {showIconFeedback && (
+                                  <div className="flex-shrink-0">
+                                    {isSelected && userWasCorrect && (
+                                      <CheckCircle className="w-5 h-5 text-emerald-600" />
+                                    )}
+                                    {isSelected && !userWasCorrect && (
+                                      <XCircle className="w-5 h-5 text-red-600" />
+                                    )}
+                                    {!isSelected && isCorrectOption && !userWasCorrect && (
+                                      <CheckCircle className="w-5 h-5 text-emerald-600" />
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          }
+                        )}
+                      </div>
+
+                      {showContinueButton && answerResponse && (
+                        <div
+                          className={`mt-4 p-4 rounded-lg shadow-sm border-l-4 ${answerResponse.is_correct === 1
+                            ? "bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-500"
+                            : "bg-gradient-to-r from-orange-50 to-amber-50 border-yellow-500"
+                            }`}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className="flex-shrink-0 mt-0.5">
+                              <Lightbulb
+                                className={`w-5 h-5 ${answerResponse.is_correct === 1
+                                  ? "text-emerald-600"
+                                  : "text-yellow-600"
+                                  }`}
+                              />
+                            </div>
+                            <div>
+                              <p
+                                className={`text-sm font-semibold mb-1 ${answerResponse.is_correct === 1
+                                  ? "text-emerald-800"
+                                  : "text-yellow-800"
+                                  }`}
+                              >
+                                {answerResponse.is_correct === 1
+                                  ? t("toasts.correctAnswer")
+                                  : t("toasts.incorrectAnswer")}
+                                {answerResponse.is_correct === 1 && gameData && (
+                                  <span className="ml-2 font-bold text-emerald-600">
+                                    +{gameData.grade - previousScore} {t("game.points")}
+                                  </span>
+                                )}
+                              </p>
+                              <p
+                                className={`text-sm leading-relaxed ${answerResponse.is_correct === 1
+                                  ? "text-emerald-700"
+                                  : "text-yellow-700"
+                                  }`}
+                              >
+                                {questions[actualQuestionIndex].feedback}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </>
+
+                  )
+
+                  }
                 </div>
                 <div className="flex justify-between w-full mt-4">
-                  <div className="flex justify-center align-middle gap-2">
+                  <div className="flex justify-center items-center gap-2">
+                    <AbortGameDialog
+                      onConfirm={abortGame}
+                      triggerComponent={
+                        <Button
+                          className="w-fit bg-transparent hover:bg-red-100 text-black cursor-pointer"
+                          disabled={
+                            isAbortingGame ||
+                            loadingUpdate ||
+                            gameData?.finished_on !== null
+                          }
+                        >
+                          <Ban className="w-4 h-4" />
+                        </Button>
+                      }
+                      disabled={
+                        isAbortingGame ||
+                        loadingUpdate ||
+                        gameData?.finished_on !== null
+                      }
+                    />
                     <Button
                       onClick={() => setShowTip(!showTip)}
-                      className={`w-fit bg-transparent hover:bg-gray-400 text-black cursor-pointer ${
-                        showTip
-                          ? "ring-1 ring-offset-1 ring-gray-500 bg-gray-200"
-                          : ""
-                      }`}
+                      className={`w-fit bg-transparent hover:bg-yellow-100 text-black cursor-pointer ${showTip
+                        ? "ring-1 ring-offset-1 ring-yellow-300 bg-yellow-100"
+                        : ""
+                        }`}
                     >
                       <Key className="w-4 h-4 " />
                     </Button>
                     {showTip && (
-                      <div className="flex justify-center items-center  text-blue-700">
-                        <p className="text-sm italic">
+                      <div className="flex justify-center items-center gap-2 text-blue-700">
+                        <p className="text-sm leading-relaxed">
+                          <span className="font-semibold text-blue-600">{t("game.tip")}: </span>
                           {questions[actualQuestionIndex].tip_note}
                         </p>
                       </div>
@@ -670,9 +784,10 @@ useEffect(() => {
                           setCurrentAnswerId(null);
                           setShowContinueButton(false);
                           setAnswerResponse(null);
+                          setPreviousScore(0);
 
                           // Refrescar gameData para traer vidas/puntaje actualizado
-                          
+
 
                           // El modal se abrirá automáticamente si finished_on !== null (vía useEffect)
                           // Si el juego no ha terminado, buscar siguiente pregunta
@@ -694,7 +809,7 @@ useEffect(() => {
                             }
                             await refreshGameData();
                           }
-                          setLoadingNextQuestion(false); 
+                          setLoadingNextQuestion(false);
                         } else {
                           // Modo "Responder" - Enviar respuesta
                           console.log(
@@ -720,10 +835,13 @@ useEffect(() => {
                             return;
                           }
 
+                          // guardar puntaje actual antes de enviar la respuesta
+                          setPreviousScore(gameData?.grade ?? 0);
+
                           // Finalizar la respuesta en BD
                           const success = await finalizeAnswer(optionId);
 
-                          // Refrescar gameData para tener puntaje/vidas al día
+                          // Refrescar gameData para tener puntaje/vidas actualizado
                           await refreshGameData();
 
                           // Si se guardó (sin importar si fue correcta), mostrar "Continuar"
