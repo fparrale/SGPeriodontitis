@@ -1,5 +1,6 @@
 import { formatMysqlMadridToUser } from "@/lib/utils";
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import { useTranslation } from "react-i18next";
 
 type QuestionGroupData = {
     question: string;
@@ -103,7 +104,16 @@ export function GroupPerformanceReportPdf(props: {
     statsByQuestionId: Map<string, GroupQuestionStats>;
     gameStats: GameStats[];
 }) {
+    const { t } = useTranslation();
     const { groupName, groupCode, createdOn, selectedQuestions, statsByQuestionId, gameStats } = props;
+
+    const statusLabelMap: Record<string, string> = {
+        finished: t("game.groupStats.finished"),
+        failed: t("game.groupStats.failed"),
+        abandoned: t("game.groupStats.abandoned"),
+    };
+
+    const getStatusLabel = (status: string) => statusLabelMap[status] || status;
 
     const totalGames = gameStats.length;
     const uniqueParticipants = new Set(gameStats.map(g => g.user_id)).size;
@@ -157,33 +167,33 @@ export function GroupPerformanceReportPdf(props: {
             <Page size="A4" style={styles.page}>
                 {/* Encabezado */}
                 <View style={styles.header}>
-                    <Text style={styles.title}>Reporte de desempeño del grupo</Text>
+                    <Text style={styles.title}>{t("report.groupPdf.title")}</Text>
                     <Text style={styles.subtitle}>
-                        Grupo: {groupName}
+                        {t("report.groupPdf.group")}: {groupName}
                         {groupCode ? ` (#${groupCode})` : ""}
-                        {createdOn ? ` • Creado: ${createdOn}` : ""}
+                        {createdOn ? ` • ${t("report.groupPdf.created")}: ${createdOn}` : ""}
                     </Text>
                     <Text style={styles.subtitle}>
-                        Reporte generado: {generatedAt}
+                        {t("report.groupPdf.generated")}: {generatedAt}
                     </Text>
                 </View>
 
                 {/* Resumen KPIs */}
-                <Text style={styles.sectionTitle}>Resumen</Text>
+                <Text style={styles.sectionTitle}>{t("report.groupPdf.summary")}</Text>
 
                 <View style={styles.kpiGrid}>
                     {/* Volumen */}
                     <View style={styles.kpiRow}>
                         <View style={styles.kpi}>
-                            <Text style={styles.kpiLabel}>Total partidas</Text>
+                            <Text style={styles.kpiLabel}>{t("report.groupPdf.totalGames")}</Text>
                             <Text style={styles.kpiValue}>{totalGames}</Text>
                         </View>
                         <View style={styles.kpi}>
-                            <Text style={styles.kpiLabel}>Jugadores</Text>
+                            <Text style={styles.kpiLabel}>{t("report.groupPdf.players")}</Text>
                             <Text style={styles.kpiValue}>{uniqueParticipants}</Text>
                         </View>
                         <View style={styles.kpi}>
-                            <Text style={styles.kpiLabel}>Prom. Precisión</Text>
+                            <Text style={styles.kpiLabel}>{t("report.groupPdf.avgAccuracy")}</Text>
                             <Text style={styles.kpiValue}>{avgAcc}%</Text>
                         </View>
                     </View>
@@ -191,15 +201,15 @@ export function GroupPerformanceReportPdf(props: {
                     {/* Puntaje */}
                     <View style={styles.kpiRow}>
                         <View style={styles.kpi}>
-                            <Text style={styles.kpiLabel}>Prom. puntos</Text>
+                            <Text style={styles.kpiLabel}>{t("report.groupPdf.avgScore")}</Text>
                             <Text style={styles.kpiValue}>{avgScore}</Text>
                         </View>
                         <View style={styles.kpi}>
-                            <Text style={styles.kpiLabel}>Puntaje máx.</Text>
+                            <Text style={styles.kpiLabel}>{t("report.groupPdf.maxScore")}</Text>
                             <Text style={styles.kpiValue}>{maxScore}</Text>
                         </View>
                         <View style={styles.kpi}>
-                            <Text style={styles.kpiLabel}>Puntaje mín.</Text>
+                            <Text style={styles.kpiLabel}>{t("report.groupPdf.minScore")}</Text>
                             <Text style={styles.kpiValue}>{minScore}</Text>
                         </View>
                     </View>
@@ -207,15 +217,15 @@ export function GroupPerformanceReportPdf(props: {
                     {/* Tiempo */}
                     <View style={styles.kpiRow}>
                         <View style={styles.kpi}>
-                            <Text style={styles.kpiLabel}>Prom. tiempo de juego</Text>
+                            <Text style={styles.kpiLabel}>{t("report.groupPdf.avgGameTime")}</Text>
                             <Text style={styles.kpiValue}>{formatTime(avgTimeSec)}</Text>
                         </View>
                         <View style={styles.kpi}>
-                            <Text style={styles.kpiLabel}>Mejor tiempo de juego</Text>
+                            <Text style={styles.kpiLabel}>{t("report.groupPdf.bestGameTime")}</Text>
                             <Text style={styles.kpiValue}>{formatTime(bestTimeSec)}</Text>
                         </View>
                         <View style={styles.kpi}>
-                            <Text style={styles.kpiLabel}>Peor tiempo de juego</Text>
+                            <Text style={styles.kpiLabel}>{t("report.groupPdf.worstGameTime")}</Text>
                             <Text style={styles.kpiValue}>{formatTime(worstTimeSec)}</Text>
                         </View>
                     </View>
@@ -223,7 +233,7 @@ export function GroupPerformanceReportPdf(props: {
 
                 <View style={{ marginTop: 8 }}>
                     <Text style={{ color: "#374151" }}>
-                        Tasa de finalización:{" "}
+                        {t("report.groupPdf.completionRate")}: {" "}
                         <Text style={completionRate >= 70 ? styles.badgeOk : styles.badgeWarn}>
                             {completionRate}%
                         </Text>
@@ -231,18 +241,18 @@ export function GroupPerformanceReportPdf(props: {
                 </View>
 
                 {/* Tabla de preguntas */}
-                <Text style={styles.sectionTitle}>Desempeño por preguntas</Text>
+                <Text style={styles.sectionTitle}>{t("report.groupPdf.questionPerformance")}</Text>
                 <View style={styles.table}>
                     {/* Header */}
                     <View style={[styles.tr, styles.th]}>
                         <Text style={[styles.cell, styles.colIdx]}>#</Text>
-                        <Text style={[styles.cell, styles.colQuestion]}>Pregunta</Text>
-                        <Text style={[styles.cell, styles.colSmall, styles.cellCenter]}>Opc. A</Text>
-                        <Text style={[styles.cell, styles.colSmall, styles.cellCenter]}>Opc. B</Text>
-                        <Text style={[styles.cell, styles.colSmall, styles.cellCenter]}>Opc. C</Text>
-                        <Text style={[styles.cell, styles.colSmall, styles.cellCenter]}>Opc. D</Text>
-                        <Text style={[styles.cell, styles.colTime, styles.cellCenter]}>Prom. Tiempo</Text>
-                        <Text style={[styles.cell, styles.colAcc, styles.cellCenter]}>Precisión</Text>
+                        <Text style={[styles.cell, styles.colQuestion]}>{t("report.groupPdf.question")}</Text>
+                        <Text style={[styles.cell, styles.colSmall, styles.cellCenter]}>{t("report.groupPdf.optionA")}</Text>
+                        <Text style={[styles.cell, styles.colSmall, styles.cellCenter]}>{t("report.groupPdf.optionB")}</Text>
+                        <Text style={[styles.cell, styles.colSmall, styles.cellCenter]}>{t("report.groupPdf.optionC")}</Text>
+                        <Text style={[styles.cell, styles.colSmall, styles.cellCenter]}>{t("report.groupPdf.optionD")}</Text>
+                        <Text style={[styles.cell, styles.colTime, styles.cellCenter]}>{t("report.groupPdf.avgTime")}</Text>
+                        <Text style={[styles.cell, styles.colAcc, styles.cellCenter]}>{t("report.groupPdf.accuracy")}</Text>
                     </View>
 
                     {/* Rows */}
@@ -277,26 +287,30 @@ export function GroupPerformanceReportPdf(props: {
                 </View>
 
                 {/* Tabla de resumen de partidas */}
-                <Text style={styles.sectionTitle}>Resultados de partidas</Text>
+                <Text style={styles.sectionTitle}>{t("report.groupPdf.gameResults")}</Text>
                 <View style={styles.table}>
                     <View style={[styles.tr, styles.th]}>
-                        <Text style={[styles.cell, { width: 65 }]}>Fecha</Text>
-                        <Text style={[styles.cell, { width: 110 }]}>Usuario</Text>
-                        <Text style={[styles.cell, { width: 60 }, styles.cellCenter]}>Puntos</Text>
-                        <Text style={[styles.cell, { width: 80 }, styles.cellCenter]}>Correctas</Text>
-                        <Text style={[styles.cell, { width: 70 }, styles.cellCenter]}>Incorrectas</Text>
-                        <Text style={[styles.cell, { width: 45 }, styles.cellCenter]}>Vidas</Text>
-                        <Text style={[styles.cell, { width: 60 }, styles.cellCenter]}>Tiempo</Text>
-                        <Text style={[styles.cell, { flexGrow: 1 }, styles.cellCenter]}>Estado</Text>
+                        <Text style={[styles.cell, { width: 22 }, styles.cellCenter]}>#</Text>
+                        <Text style={[styles.cell, { width: 60 }]}>{t("report.groupPdf.date")}</Text>
+                        <Text style={[styles.cell, { width: 100 }]}>{t("report.groupPdf.user")}</Text>
+                        <Text style={[styles.cell, { width: 60 }, styles.cellCenter]}>{t("report.groupPdf.score")}</Text>
+                        <Text style={[styles.cell, { width: 80 }, styles.cellCenter]}>{t("report.groupPdf.correct")}</Text>
+                        <Text style={[styles.cell, { width: 70 }, styles.cellCenter]}>{t("report.groupPdf.incorrect")}</Text>
+                        <Text style={[styles.cell, { width: 45 }, styles.cellCenter]}>{t("report.groupPdf.lives")}</Text>
+                        <Text style={[styles.cell, { width: 60 }, styles.cellCenter]}>{t("report.groupPdf.time")}</Text>
+                        <Text style={[styles.cell, { width: 75 }, styles.cellCenter]}>{t("report.groupPdf.status")}</Text>
                     </View>
 
-                    {gameStats.map((g) => (
+                    {gameStats.map((g, idx) => (
                         <View key={g.id} style={styles.tr} wrap={false}>
-                            <Text style={[styles.cell, { width: 70 }]}>
+                            <Text style={[styles.cell, { width: 22 }, styles.cellCenter]}>
+                                {idx + 1}
+                            </Text>
+                            <Text style={[styles.cell, { width: 60 }]}>
                                 {formatDateTime(g.created_on)}
                             </Text>
-                            <Text style={[styles.cell, { width: 120 }]}>
-                                {g.username || g.name || "Usuario..."}
+                            <Text style={[styles.cell, { width: 100 }]}>
+                                {g.username || g.name || t("report.groupPdf.userPlaceholder")}
                             </Text>
                             <Text style={[styles.cell, { width: 60 }, styles.cellCenter]}>{g.score}</Text>
                             <Text style={[styles.cell, { width: 80 }, styles.cellCenter]}>
@@ -305,15 +319,15 @@ export function GroupPerformanceReportPdf(props: {
                             <Text style={[styles.cell, { width: 70 }, styles.cellCenter]}>{g.wrong_answers}</Text>
                             <Text style={[styles.cell, { width: 45 }, styles.cellCenter]}>{g.lives_number}</Text>
                             <Text style={[styles.cell, { width: 60 }, styles.cellCenter]}>{formatTime(g.total_time)}</Text>
-                            <Text style={[styles.cell, { flexGrow: 1 }, styles.cellCenter]}>
-                                {g.status === "finished" ? "Finalizado" : g.status}
+                            <Text style={[styles.cell, { width: 75 }, styles.cellCenter]}>
+                                {getStatusLabel(g.status)}
                             </Text>
                         </View>
                     ))}
                 </View>
                 <Text
                     style={styles.footer}
-                    render={({ pageNumber, totalPages }) => `Página ${pageNumber} de ${totalPages}`}
+                    render={({ pageNumber, totalPages }) => `${t("report.groupPdf.page")} ${pageNumber} ${t("report.groupPdf.of")} ${totalPages}`}
                     fixed
                 />
             </Page>

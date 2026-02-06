@@ -7,7 +7,7 @@ import { SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/sel
 import type { GroupQuestionStats } from "@/types/questionType";
 import { useTranslation } from "react-i18next";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
-import { User, Trophy, CircleCheck, CircleX, Clock, Heart, FileText, BadgeQuestionMark, CircleEllipsis, Calendar } from "lucide-react";
+import { User, Trophy, CircleCheck, CircleX, Clock, Heart, FileText, BadgeQuestionMark, CircleEllipsis, Calendar, Medal } from "lucide-react";
 import { Button } from "../ui/button";
 import { UserAttemptReportDialog } from "../report/UserAttemptReportDialog";
 import { PDFDownloadLink } from "@react-pdf/renderer";
@@ -218,14 +218,28 @@ const DashboardHome = () => {
             }`;
     };
 
-    const  getStatusLabel = ({ status }: { status: string; }): string => {
+    const getStatusLabel = ({ status }: { status: string; }): string => {
         const statusMap: Record<string, string> = {
             finished: t('dashboard.gameStats.statusFinished'),
             failed: t('dashboard.gameStats.statusFailed'),
+            abandoned: t('dashboard.gameStats.statusAbandoned')
         };
 
         return statusMap[status] || status;
     }
+
+    const getPodiumBadge = (index: number) => {
+        switch (index) {
+            case 0:
+                return <Medal className="w-4 h-4 text-yellow-500 fill-yellow-400 drop-shadow-sm" />;
+            case 1:
+                return <Medal className="w-4 h-4 text-slate-500 fill-slate-400 drop-shadow-sm" />;
+            case 2:
+                return <Medal className="w-4 h-4 text-amber-700 fill-amber-600 drop-shadow-sm" />;
+            default:
+                return null;
+        }
+    };
 
 
     if (loadingGroups) {
@@ -404,6 +418,7 @@ const DashboardHome = () => {
                                 <Table>
                                     <TableHeader>
                                         <TableRow>
+                                            <TableHead className="w-[40px] text-center">#</TableHead>
                                             <TableHead className="w-[150px]">
                                                 <div className="flex items-center gap-1">
                                                     <User className="w-4 h-4" />
@@ -461,10 +476,16 @@ const DashboardHome = () => {
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
-                                        {gameStats.map((stat) => (
+                                        {gameStats.map((stat, index) => (
                                             <TableRow key={stat.id}>
+                                                <TableCell className="text-center font-medium text-gray-500">
+                                                    {index + 1}
+                                                </TableCell>
                                                 <TableCell className="font-medium">
-                                                    {stat.username || stat.name || 'Usuario...'}
+                                                    <div className="flex items-center gap-2">
+                                                        <span>{stat.username || stat.name || 'Usuario...'}</span>
+                                                        {getPodiumBadge(index)}
+                                                    </div>
                                                 </TableCell>
                                                 <TableCell className="text-center">
                                                     <span className="font-bold text-blue-600">
@@ -493,7 +514,9 @@ const DashboardHome = () => {
                                                     <span
                                                         className={`inline-block px-2 py-1 rounded text-xs font-semibold ${stat.status === "finished"
                                                             ? "bg-green-100 text-green-700"
-                                                            : "bg-yellow-100 text-yellow-700"
+                                                            : stat.status === "failed"
+                                                                ? "bg-yellow-100 text-yellow-700"
+                                                                : "bg-gray-100 text-gray-700"
                                                             }`}
                                                     >
                                                         {getStatusLabel({ status: stat.status })}
@@ -529,11 +552,17 @@ const DashboardHome = () => {
 
                             {/* Vista minimalista para móvil */}
                             <div className="md:hidden space-y-2">
-                                {gameStats.map((stat) => (
+                                {gameStats.map((stat, index) => (
                                     <div key={stat.id} className="border rounded-lg p-3 bg-gray-50">
                                         <div className="flex justify-between items-center mb-2">
-                                            <div className="font-semibold text-gray-800 text-sm truncate pr-2">
-                                                {stat.username || stat.name || 'Usuario...'}
+                                            <div className="flex items-center gap-2 flex-1 min-w-0">
+                                                <span className="font-medium text-gray-500 text-xs flex-shrink-0">
+                                                    #{index + 1}
+                                                </span>
+                                                <div className="font-semibold text-gray-800 text-sm truncate">
+                                                    {stat.username || stat.name || 'Usuario...'}
+                                                </div>
+                                                {getPodiumBadge(index)}
                                             </div>
                                             <span
                                                 className={`px-1.5 py-0.5 rounded text-[10px] font-medium flex-shrink-0 ${stat.status === "finished"

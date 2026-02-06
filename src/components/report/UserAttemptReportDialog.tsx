@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
-import { Loader2, CheckCircle2, XCircle, Clock, Trophy, Target, Heart, Users, Hash, Calendar, User, FileText, List } from "lucide-react";
+import { Loader2, CheckCircle2, XCircle, Clock, Trophy, Target, Heart, Users, Hash, Calendar, User, FileText, List, BadgeQuestionMark } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
@@ -129,6 +129,24 @@ export function UserAttemptReportDialog({ groupId, userId, gameId, triggerCompon
         }).format(date);
     };
 
+    const getStatusLabel = (status: string): string => {
+        const statusMap: Record<string, string> = {
+            finished: t('dashboard.gameStats.statusFinished'),
+            failed: t('dashboard.gameStats.statusFailed'),
+            abandoned: t('dashboard.gameStats.statusAbandoned')
+        };
+        return statusMap[status] || status;
+    };
+
+    const getStatusColor = (status: string): string => {
+        const colorMap: Record<string, string> = {
+            finished: "text-green-700",
+            failed: "text-yellow-700",
+            abandoned: "text-gray-700"
+        };
+        return colorMap[status] || "text-gray-700";
+    };
+
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>{triggerComponent}</DialogTrigger>
@@ -189,7 +207,7 @@ export function UserAttemptReportDialog({ groupId, userId, gameId, triggerCompon
                                 {/* Información General */}
                                 <div>
                                     <h4 className="text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">{t('report.userAttempt.generalInfo')}</h4>
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                                         <div className="flex items-center gap-3">
                                             <User className="w-5 h-5 text-purple-600" />
                                             <div>
@@ -211,6 +229,16 @@ export function UserAttemptReportDialog({ groupId, userId, gameId, triggerCompon
                                             <div>
                                                 <p className="text-sm text-gray-600 font-medium">{t('report.userAttempt.groupCode')}</p>
                                                 <p className="text-base font-semibold text-gray-800">{reportData.summary.group_code}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center gap-3">
+                                            <BadgeQuestionMark className={`w-5 h-5 ${getStatusColor(reportData.summary.status)}`} />
+                                            <div>
+                                                <p className="text-sm text-gray-600 font-medium">{t('dashboard.gameStats.status')}</p>
+                                                <p className={`text-base font-bold ${getStatusColor(reportData.summary.status)}`}>
+                                                    {getStatusLabel(reportData.summary.status)}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -300,105 +328,110 @@ export function UserAttemptReportDialog({ groupId, userId, gameId, triggerCompon
                             </h3>
 
                             <div className="space-y-6">
-                                {reportData.questions.map((question, index) => (
-                                    <div key={question.answer_id} className="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
-                                        {/* Header de la Pregunta */}
-                                        <div className="flex items-start justify-between mb-3">
-                                            <div className="flex-1">
-                                                <div className="flex items-center gap-2 mb-2">
-                                                    <Badge className={`text-xs ${question.is_correct
-                                                        ? "bg-green-600 text-white hover:bg-green-700"
-                                                        : "bg-destructive text-white hover:bg-red-700"
-                                                        }`}
-                                                    >
-                                                        {question.is_correct ? (
-                                                            <>
-                                                                <CheckCircle2 className="w-3 h-3 mr-1" />
-                                                                {t('report.userAttempt.badgeCorrect')}
-                                                            </>
-                                                        ) : (
-                                                            <>
-                                                                <XCircle className="w-3 h-3 mr-1" />
-                                                                {t('report.userAttempt.badgeIncorrect')}
-                                                            </>
-                                                        )}
-                                                    </Badge>
-                                                    <span className="text-xs text-gray-500 flex items-center gap-1" title={t('report.userAttempt.responseTimeTooltip')}>
-                                                        <Clock className="w-3 h-3" />
-                                                        {formatTime(question.time_spent_sec)}
-                                                    </span>
-                                                </div>
-                                                <h4 className="text-lg font-bold text-gray-800">
-                                                    {index + 1}. {question.description}
-                                                </h4>
-                                                <p className="text-sm text-gray-600 mt-1">{question.title}</p>
-                                            </div>
-                                        </div>
-
-                                        {/* Opciones de Respuesta */}
-                                        <div className="space-y-2 mb-4">
-                                            <p className="text-sm font-semibold text-gray-700">{t('report.userAttempt.optionsLabel')}</p>
-                                            {question.options.map((option) => {
-                                                const isUserSelection = option.id === question.selected_option_id;
-                                                const isCorrectOption = option.is_correct === 1;
-
-                                                return (
-                                                    <div
-                                                        key={option.id}
-                                                        className={`flex items-start gap-2 p-3 rounded-md border ${isUserSelection && isCorrectOption
-                                                            ? 'bg-green-50 border-green-300'
-                                                            : isUserSelection && !isCorrectOption
-                                                                ? 'bg-red-50 border-red-300'
-                                                                : 'bg-gray-50 border-gray-200'
-                                                            }`}
-                                                    >
-                                                        {isUserSelection && isCorrectOption && (
-                                                            <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                                                        )}
-                                                        {isUserSelection && !isCorrectOption && (
-                                                            <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                                                        )}
-                                                        {!isUserSelection && (
-                                                            <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex-shrink-0 mt-0.5" />
-                                                        )}
-                                                        <p className="text-sm text-gray-700 flex-1">{option.text}</p>
-                                                    </div>
-                                                );
-                                            })}
-                                        </div>
-
-                                        {/* Respuesta Correcta (se muestra si la del usuario fue incorrecta) */}
-                                        {!question.is_correct && (
-                                            <div className="mb-4 rounded-lg bg-gradient-to-r from-green-50 to-green-100 p-4 shadow-sm">
-                                                <div className="flex items-start gap-2">
-                                                    <span className="text-green-600 text-lg">ℹ</span>
-                                                    <div>
-                                                        <p className="text-sm font-semibold text-green-800">
-                                                            {t('report.userAttempt.correctAnswerInfo')}
-                                                        </p>
-                                                        <p className="text-sm text-green-700 mt-1">
-                                                            {question.correct_option_text}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <div className="rounded-lg bg-gradient-to-r from-blue-50 to-blue-100 p-4 shadow-sm">
-                                            <div className="flex items-start gap-2">
-                                                <span className="text-blue-600 text-lg">💡</span>
-                                                <div>
-                                                    <p className="text-sm font-semibold text-blue-800">
-                                                        {t('report.userAttempt.feedback')}
-                                                    </p>
-                                                    <p className="text-sm text-blue-700 mt-1">
-                                                        {question.feedback}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                {reportData.questions.length === 0 ? (
+                                    <div className="text-center py-12 bg-gray-50 rounded-lg border border-gray-200">
+                                        <p className="text-gray-600">{t('report.userAttempt.noQuestions', 'No se respondieron preguntas')}</p>
                                     </div>
-                                ))}
+                                ) : (
+                                    reportData.questions.map((question, index) => (
+                                        <div key={question.answer_id} className="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
+                                            {/* Header de la Pregunta */}
+                                            <div className="flex items-start justify-between mb-3">
+                                                <div className="flex-1">
+                                                    <div className="flex items-center gap-2 mb-2">
+                                                        <Badge className={`text-xs ${question.is_correct
+                                                            ? "bg-green-600 text-white hover:bg-green-700"
+                                                            : "bg-destructive text-white hover:bg-red-700"
+                                                            }`}
+                                                        >
+                                                            {question.is_correct ? (
+                                                                <>
+                                                                    <CheckCircle2 className="w-3 h-3 mr-1" />
+                                                                    {t('report.userAttempt.badgeCorrect')}
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <XCircle className="w-3 h-3 mr-1" />
+                                                                    {t('report.userAttempt.badgeIncorrect')}
+                                                                </>
+                                                            )}
+                                                        </Badge>
+                                                        <span className="text-xs text-gray-500 flex items-center gap-1" title={t('report.userAttempt.responseTimeTooltip')}>
+                                                            <Clock className="w-3 h-3" />
+                                                            {formatTime(question.time_spent_sec)}
+                                                        </span>
+                                                    </div>
+                                                    <h4 className="text-lg font-bold text-gray-800">
+                                                        {index + 1}. {question.description}
+                                                    </h4>
+                                                    <p className="text-sm text-gray-600 mt-1">{question.title}</p>
+                                                </div>
+                                            </div>
+
+                                            {/* Opciones de Respuesta */}
+                                            <div className="space-y-2 mb-4">
+                                                <p className="text-sm font-semibold text-gray-700">{t('report.userAttempt.optionsLabel')}</p>
+                                                {question.options.map((option) => {
+                                                    const isUserSelection = option.id === question.selected_option_id;
+                                                    const isCorrectOption = option.is_correct === 1;
+
+                                                    return (
+                                                        <div
+                                                            key={option.id}
+                                                            className={`flex items-start gap-2 p-3 rounded-md border ${isUserSelection && isCorrectOption
+                                                                ? 'bg-green-50 border-green-300'
+                                                                : isUserSelection && !isCorrectOption
+                                                                    ? 'bg-red-50 border-red-300'
+                                                                    : 'bg-gray-50 border-gray-200'
+                                                                }`}
+                                                        >
+                                                            {isUserSelection && isCorrectOption && (
+                                                                <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                                                            )}
+                                                            {isUserSelection && !isCorrectOption && (
+                                                                <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                                                            )}
+                                                            {!isUserSelection && (
+                                                                <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex-shrink-0 mt-0.5" />
+                                                            )}
+                                                            <p className="text-sm text-gray-700 flex-1">{option.text}</p>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+
+                                            {/* Respuesta Correcta (se muestra si la del usuario fue incorrecta) */}
+                                            {!question.is_correct && (
+                                                <div className="mb-4 rounded-lg bg-gradient-to-r from-green-50 to-green-100 p-4 shadow-sm">
+                                                    <div className="flex items-start gap-2">
+                                                        <span className="text-green-600 text-lg">ℹ</span>
+                                                        <div>
+                                                            <p className="text-sm font-semibold text-green-800">
+                                                                {t('report.userAttempt.correctAnswerInfo')}
+                                                            </p>
+                                                            <p className="text-sm text-green-700 mt-1">
+                                                                {question.correct_option_text}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            <div className="rounded-lg bg-gradient-to-r from-blue-50 to-blue-100 p-4 shadow-sm">
+                                                <div className="flex items-start gap-2">
+                                                    <span className="text-blue-600 text-lg">💡</span>
+                                                    <div>
+                                                        <p className="text-sm font-semibold text-blue-800">
+                                                            {t('report.userAttempt.feedback')}
+                                                        </p>
+                                                        <p className="text-sm text-blue-700 mt-1">
+                                                            {question.feedback}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )))}
                             </div>
                         </div>
                     </div>
