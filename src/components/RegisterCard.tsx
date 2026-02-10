@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle, Mail, User, Lock } from "lucide-react";
+import { UserRoundPlus, Mail, User, Lock } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
@@ -56,7 +56,7 @@ const RegisterCard = () => {
     <Card className="w-[450px] shadow-2xl h-fit border-t-4 border-sky-300">
       <CardHeader className="space-y-1 text-center bg-gray-50 p-6 rounded-t-lg">
         <div className="flex items-center justify-center mb-1">
-          <CheckCircle className="w-7 h-7 text-sky-500" />
+          <UserRoundPlus className="w-7 h-7 text-sky-500" />
         </div>
         <CardTitle className="text-3xl font-extrabold text-gray-800 tracking-wider">
           {t('auth.register.title')}
@@ -90,6 +90,7 @@ const RegisterCard = () => {
                   placeholder={t('auth.register.fullNamePlaceholder')}
                   className="pl-10 h-11 border-sky-200 focus:border-sky-500 transition duration-300"
                   value={name}
+                  maxLength={70}
                   onChange={(e) => {
                     if (error) setError(null);
                     setName(e.target.value);
@@ -111,6 +112,7 @@ const RegisterCard = () => {
                   placeholder={t('auth.register.emailPlaceholder')}
                   className="pl-10 h-11 border-sky-200 focus:border-sky-500 transition duration-300"
                   value={email}
+                  maxLength={60}
                   onChange={(e) => {
                     if (error) setError(null);
                     setEmail(e.target.value);
@@ -133,6 +135,7 @@ const RegisterCard = () => {
                   autoComplete="new-password"
                   className="pl-10 h-11 border-sky-200 focus:border-sky-500 transition duration-300"
                   value={password}
+                  maxLength={32}
                   onChange={(e) => {
                     if (error) setError(null);
                     setPassword(e.target.value);
@@ -153,6 +156,7 @@ const RegisterCard = () => {
                   type="password"
                   placeholder={t('auth.register.confirmPasswordPlaceholder')}
                   autoComplete="new-password"
+                  maxLength={32}
                   className="pl-10 h-11 border-sky-200 focus:border-sky-500 transition duration-300"
                   value={confirmPassword}
                   onChange={(e) => {

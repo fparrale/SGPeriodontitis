@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Briefcase, Key, User } from "lucide-react";
+import { GamepadDirectional, Key, Mail } from "lucide-react";
 import { loginApi } from "@/lib/authApi";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
@@ -34,7 +34,6 @@ const LoginCard = () => {
       localStorage.setItem("auth_user", JSON.stringify(resp.data));
 
       navigate("/dashboard", { replace: true });
-      //window.location.href = "/dashboard";
     } catch {
       setError(t('auth.login.connectionError'));
     } finally {
@@ -46,7 +45,7 @@ const LoginCard = () => {
     <Card className=" min-w-[450px] shadow-2xl h-fit border-t-4 border-sky-300">
       <CardHeader className="space-y-1 text-center bg-gray-50 p-6 rounded-t-lg">
         <div className="flex items-center justify-center mb-1">
-          <Briefcase className="w-7 h-7 text-sky-500" />
+          <GamepadDirectional className="w-7 h-7 text-sky-500" />
         </div>
         <CardTitle className="text-3xl font-extrabold text-gray-800 tracking-wider">
           {t('auth.login.title')}
@@ -67,13 +66,14 @@ const LoginCard = () => {
                 {t('auth.login.email')}
               </Label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-sky-400" />
+                <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-sky-400" />
                 <Input
                   id="email"
                   type="email"
                   placeholder={t('auth.login.emailPlaceholder')}
                   className="pl-10 h-11 border-sky-200 focus:border-sky-500 transition duration-300"
                   value={email}
+                  maxLength={60}
                   onChange={(e) => { setEmail(e.target.value); if (error) setError(null); }}
                   required
                 />
@@ -92,6 +92,7 @@ const LoginCard = () => {
                   placeholder={t('auth.login.passwordPlaceholder')}
                   className="pl-10 h-11 border-sky-200 focus:border-sky-500 transition duration-300"
                   value={password}
+                  maxLength={32}
                   onChange={(e) => { setPassword(e.target.value); if (error) setError(null); }}
                   required
                 />
@@ -109,16 +110,16 @@ const LoginCard = () => {
         </form>
       </CardContent>
 
-      <CardFooter className="flex justify-between pt-2 text-sm border-t border-gray-100 mt-4 mx-6">
-        <Link
+      <CardFooter className="flex justify-center pt-2 text-sm border-t border-gray-100 mt-4 mx-6">
+        {/*         <Link
           to="/forgot-password"
           className="font-medium text-gray-500 hover:text-sky-500 transition-colors"
         >
           {t('auth.login.forgotPassword')}
-        </Link>
+        </Link> */}
         <p className="text-gray-500">
           {t('auth.login.newMember')}
-          <Link to="/register" className="ml-1 font-bold text-sky-500 hover:text-sky-600 transition-colors">
+          <Link to="/register" className="ml-1 font-bold text-sky-500 hover:text-sky-600 hover:animate-pulse transition-colors">
             {t('auth.login.register')}
           </Link>
         </p>
