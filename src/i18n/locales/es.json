@@ -499,6 +499,9 @@
     "respond": "Responder",
     "continue": "Continuar",
     "saving": "Guardando...",
+    "group": "Grupo",
+    "copy": "Copiar",
+    "copySuccess": "Código de acceso copiado al portapapeles",
     "abort": {
       "title": "Abandonar partida",
       "description": "Vas a terminar la partida antes de tiempo.",

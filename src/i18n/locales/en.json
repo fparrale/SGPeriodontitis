@@ -499,6 +499,9 @@
     "respond": "Submit",
     "continue": "Continue",
     "saving": "Saving...",
+    "group": "Group",
+    "copy": "Copy",
+    "copySuccess": "Group access code copied to clipboard",
     "abort": {
       "title": "Abandon game",
       "description": "You are about to end the game early.",

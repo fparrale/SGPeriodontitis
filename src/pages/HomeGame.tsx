@@ -15,6 +15,7 @@ import {
   Clock,
   CheckCircle,
   XCircle,
+  Copy
 } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
@@ -452,20 +453,7 @@ export const HomeGame = () => {
     return heartsComponent;
   };
 
-  // // Función para convertir string de fecha a zona horaria local
-  // const convertToLocalTime = (dateString: string) => {
-  //   // dateString viene como "2026-02-01 20:57:32" PERO YA ESTÁ EN HORA LOCAL
-  //   // Reemplazar el espacio por T
-  //   const isoString = dateString.replace(" ", "T");
 
-  //   // Crear la fecha Y LUEGO RESTAR 5 HORAS porque JavaScript la interpreta como UTC
-  //   // pero en realidad ya está en UTC-5
-  //   const utcDate = new Date(isoString);
-  //   const offset = 6 * 60 * 60 * 1000; // 5 horas
-  //   const localDate = new Date(utcDate.getTime() - offset);
-
-  //   return localDate;
-  // };
 
   useEffect(() => {
     if (
@@ -506,6 +494,11 @@ export const HomeGame = () => {
     return Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
   };
 
+  function copyGroupCodeToClipboard(code: string) {
+    toast.success(t("game.copySuccess"));
+    return navigator.clipboard.writeText(code);
+  }
+
   if (loadingGame || isSearchingFirstQuestion) {
     return (
       <div className="flex   items-center justify-center h-full w-full">
@@ -526,10 +519,29 @@ export const HomeGame = () => {
         <Card className="w-[70%] shadow-2xl border-t-4 border-sky-300">
           {/* encabezado del card */}
           <CardHeader className="space-y-1 text-center bg-gradient-to-br from-blue-50 via-sky-50 to-cyan-50 p-6 rounded-t-lg border-b-2 border-sky-200">
-            <CardTitle className="text-3xl font-black tracking-wide">
-              <span className="bg-gradient-to-r from-sky-500 via-blue-400 to-sky-500 bg-clip-text text-transparent drop-shadow-sm">
-                🦷 Periodontitis Serious Game
-              </span>
+            <CardTitle className="text-3xl font-black tracking-wide w-full">
+              <div className="flex flex-col items-center gap-1">
+                <span className="bg-gradient-to-r from-sky-500 via-blue-400 to-sky-500 bg-clip-text text-transparent drop-shadow-sm leading-[1.15] pb-1">
+                  🦷 Gum Understanding Mission
+                </span>
+                {gameData?.code && (
+                  <button
+                    type="button"
+                    onClick={() => copyGroupCodeToClipboard(gameData.code)}
+                    className="inline-flex items-center gap-2 rounded-full border border-sky-100 bg-white/40 px-3 py-1 text-[11px] text-sky-700 hover:bg-white/70"
+                    aria-label="Copy group code"
+                    title={t("game.copy")}
+                  >
+                    <span className="uppercase tracking-widest text-blue-400">
+                      {t("game.group")}
+                    </span>
+                    <span className="font-mono font-semibold tracking-wider text-sky-900">
+                      {gameData.code}
+                    </span>
+                    <Copy className="h-3 w-3 text-sky-700 cursor-pointer" />
+                  </button>
+                )}
+              </div>
             </CardTitle>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4 mt-3">
               <div className="flex items-center justify-between rounded-md border border-sky-100 bg-white/60 px-3 py-2 shadow-sm">

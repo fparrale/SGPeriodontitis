@@ -15,6 +15,7 @@ export interface Game {
     started_on: string;
     finished_on: string | null;
     lifes: number;
+    code: string;
     total_answered: number;
     total_questions: number;
 }
